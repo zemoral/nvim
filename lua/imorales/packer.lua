@@ -14,8 +14,9 @@ return require('packer').startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         run=':TSUpdate'
     }
+    use 'RRethy/nvim-base16'
     use 'nvim-treesitter/playground'
-    
+   
     -- telescope
     use {
         'nvim-telescope/telescope.nvim',

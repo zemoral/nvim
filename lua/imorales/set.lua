@@ -1,3 +1,9 @@
+-- globals
+vim.g.mapleader = " "
+
+-- options
+vim.opt.guicursor = ""
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -9,3 +15,6 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
+
+-- bindings
+require('imorales.bindings')
