@@ -15,8 +15,7 @@
 
 ## Colors
 1. base16-colorscheme as a base
-2. use base16-colorscheme.highlight to customize a color, or link, a `group|capture`
-  - require('base16-colorscheme').highlight[`group|capture`] = {custom color | link}
-
+   - https://github.com/RRethy/nvim-base16 
+2. colors customized with base16-colorscheme.highlight
 
 

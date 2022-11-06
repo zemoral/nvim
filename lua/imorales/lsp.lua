@@ -12,19 +12,19 @@ require("mason-lspconfig").setup({
 -- lsp configurations --
 local servers = {
     -- bash
-    ['bashls'] = {},
+    ['bashls']        = {},
     -- css
     ['cssmodules_ls'] = {},
     -- docker
-    ['dockerls'] = {},
+    ['dockerls']      = {},
     -- go
-    ['gopls'] = {},
+    ['gopls']         = {},
     -- html
-    ['html'] = {},
+    ['html']          = {},
     -- json
-    ['jsonls'] = {},
+    ['jsonls']        = {},
     -- lua
-    ['sumneko_lua'] = {
+    ['sumneko_lua']   = {
         Lua = {
             diagnostics = {
                 globals = {
@@ -37,39 +37,39 @@ local servers = {
         },
     },
     -- markdown
-    ['remark_ls'] = {},
+    ['remark_ls']     = {},
     -- python
-    ['pyright'] = {},
+    ['pyright']       = {},
     -- rust
     ['rust_analyzer'] = {},
     -- svelte
-    ['svelte'] = {},
+    ['svelte']        = {},
     -- toml
-    ['taplo'] = {},
+    ['taplo']         = {},
     -- js,ts
-    ['tsserver'] = {},
+    ['tsserver']      = {},
     -- vim
-    ['vimls'] = {},
+    ['vimls']         = {},
     -- vue
-    ['vuels'] = {},
+    ['vuels']         = {},
     -- yaml
-    ['yamlls'] = {},
+    ['yamlls']        = {},
 }
 
 -- lsp keymaps --
 local keymap = {
-    ['gD'] = vim.lsp.buf.declaration,
-    ['gd'] = vim.lsp.buf.definitions,
-    ['K'] = vim.lsp.buf.hover,
-    ['gi'] = vim.lsp.buf.implementation,
-    ['<C-k>'] = vim.lsp.buf.signature_help,
+    ['gD']        = vim.lsp.buf.declaration,
+    ['gd']        = vim.lsp.buf.definitions,
+    ['K']         = vim.lsp.buf.hover,
+    ['gi']        = vim.lsp.buf.implementation,
+    ['<C-k>']     = vim.lsp.buf.signature_help,
     ['<space>wa'] = vim.lsp.buf.add_workspace_folder,
     ['<space>wr'] = vim.lsp.buf.remove_workspace_folder,
-    ['<space>D'] = vim.lsp.buf.type_definition,
+    ['<space>D']  = vim.lsp.buf.type_definition,
     ['<space>rn'] = vim.lsp.buf.rename,
     ['<space>ca'] = vim.lsp.buf.code_action,
-    ['gr'] = vim.lsp.buf.references,
-    ['<space>f'] = vim.lsp.buf.formatting,
+    ['gr']        = vim.lsp.buf.references,
+    ['<space>f']  = vim.lsp.buf.formatting,
 }
 
 -- lsp setup --
@@ -92,8 +92,8 @@ local M = {}
 function M.setup()
     for server in pairs(servers) do
         require('lspconfig')[server].setup({
-            flags = flags,
-            settings = servers[server],
+            flags     = flags,
+            settings  = servers[server],
             on_attach = on_attach,
         })
     end
