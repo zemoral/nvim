@@ -1,40 +1,62 @@
 require('imorales.treesitter')
+require('transparent').setup({
+    enable = true
+})
 
-local theme = {
-    ['variable'] = '#EEEEEE', -- white 
-    ['function'] = '#87D7FF', -- blue
-    ['keyword'] = '#FF5F5F', -- red
-    ['string'] = '#FFFFD7', -- yellow
-    ['number'] = '#F1BC7E', -- orange
-    ['class'] = '#AFAFFF', -- purple
-    ['type'] = '#AFFFAF', -- green
-    ['bool'] = '#FFAFFF', -- pink
-    ['misc'] = '#87AFAF', -- teal
-    ['punctuation.dark'] = '#9e9e9e',
-    ['background'] = '#2d2d30',
+local gradient = {
+    "#262626", -- darkest
+    "#353535",
+    "#444444",
+    "#626262",
+    "#808080",
+    "#9E9E9E",
+    "#A7A7A7",
+    "#AFAFAF", -- lightest
 }
 
-local links = {
-    ["@include"] = 'Keyword',
-    ["@operator"] = 'Keyword',
-    ["@punctuation.delimiter"] = { guifg = theme['punctuation.dark'] },
-    ['@property'] = '@variable',
-    ['@field'] = '@variable',
+local theme = {
+    ['background']  = gradient[1],
+    ['variable']    = '#EEEEEE', -- white
+    ['function']    = '#87D7FF', -- blue
+    ['keyword']     = '#FF5F5F', -- red
+    ['string']      = '#FFFFD7', -- yellow
+    ['number']      = '#F1BC7E', -- orange
+    ['class']       = '#AFAFFF', -- purple
+    ['type']        = '#92d490', -- green
+    ['bool']        = '#FFAFFF', -- pink
+    ['misc']        = '#87AFAF', -- teal
+    ['punctuation'] = gradient[6],
+}
+
+local colors = {
+    ["@include"]  = '@keyword',
+    ["@operator"] = '@keyword',
+
+    ['@field']     = '@variable',
+    ['@property']  = '@variable',
     ['@parameter'] = '@variable',
-    ['@type'] = '@variable',
-    ['@type.declaration'] = { guifg = theme['type'] }
+
+    ["@punctuation.delimiter"] = { guifg = theme['punctuation'] },
+
+    ['@type']                = { guifg = theme['type'] },
+    ['@type.builtin']        = { guifg = theme['class'], gui = 'none' },
+    ['@type.go']             = '@variable',
+    ['@type.declaration.go'] = { guifg = theme['type'] },
+
+    ['@boolean']             = { guifg = theme['bool'] },
+    ['@constant.builtin.go'] = { guifg = theme['bool'] },
 }
 
 local function setup()
     require("base16-colorscheme").setup({
-        base00 = theme['background'],
-        base01 = '#2c313c',
-        base02 = '#3e4451',
-        base03 = '#6c7891',
-        base04 = '#565c64',
-        base05 = '#abb2bf',
-        base06 = '#9a9bb3',
-        base07 = '#c5c8e6',
+        base00 = gradient[1],
+        base01 = gradient[2],
+        base02 = gradient[3],
+        base03 = gradient[4],
+        base04 = gradient[5],
+        base05 = gradient[6],
+        base06 = gradient[7],
+        base07 = gradient[8],
         base08 = theme['variable'],
         base09 = theme['number'],
         base0A = theme['class'],
@@ -45,7 +67,7 @@ local function setup()
         base0F = theme['type'],
     })
 
-    for group, link in pairs(links) do 
+    for group, link in pairs(colors) do
         require('base16-colorscheme').highlight[group] = link
     end
 end

@@ -1,7 +1,7 @@
 return require('packer').startup(function(use)
     -- plugin
     use 'wbthomason/packer.nvim'
-    
+
     -- language servers
     use {
         'williamboman/mason.nvim',
@@ -12,21 +12,22 @@ return require('packer').startup(function(use)
     -- theme
     use {
         'nvim-treesitter/nvim-treesitter',
-        run=':TSUpdate'
+        run = ':TSUpdate'
     }
-    use 'RRethy/nvim-base16'
     use 'nvim-treesitter/playground'
-   
+    use 'RRethy/nvim-base16'
+    use 'xiyaowong/nvim-transparent'
+
     -- telescope
     use {
         'nvim-telescope/telescope.nvim',
-        tag='0.1.0',
-        requires={
+        tag = '0.1.0',
+        requires = {
             { 'nvim-lua/plenary.nvim' }
         }
     }
     use {
-        'nvim-telescope/telescope-fzf-native.nvim', 
-        run='make'
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make'
     }
 end)

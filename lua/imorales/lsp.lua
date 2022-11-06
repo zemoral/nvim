@@ -2,7 +2,7 @@
 local Remap = require("imorales.keymap")
 local nnoremap = Remap.nnoremap
 
--- required for automatic installation 
+-- required for automatic installation
 -- language servers defined in `config` are automatically installed and configured
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -73,7 +73,7 @@ local keymap = {
 }
 
 -- lsp setup --
-local on_attach = function(_,bufnr)
+local on_attach = function(_, bufnr)
     -- autocomplete <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 

@@ -10,7 +10,7 @@ local function bind(op, outer)
     end
 end
 
-M.nmap = bind('n', { noremap = false })
+M.nmap     = bind('n', { noremap = false })
 M.nnoremap = bind("n")
 M.vnoremap = bind("v")
 M.xnoremap = bind("x")
