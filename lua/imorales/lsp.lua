@@ -3,73 +3,40 @@ local Remap = require("imorales.keymap")
 local nnoremap = Remap.nnoremap
 
 -- required for automatic installation
--- language servers defined in `config` are automatically installed and configured
+-- language servers defined in `servers` are automatically installed and configured
 require("mason").setup()
 require("mason-lspconfig").setup({
     automatic_installation = true,
 })
 
--- lsp configurations --
-local servers = {
-    -- bash
-    ['bashls']        = {},
-    -- css
-    ['cssmodules_ls'] = {},
-    -- docker
-    ['dockerls']      = {},
-    -- go
-    ['gopls']         = {},
-    -- html
-    ['html']          = {},
-    -- json
-    ['jsonls']        = {},
-    -- lua
-    ['sumneko_lua']   = {
-        Lua = {
-            diagnostics = {
-                globals = {
-                    'vim'
-                },
-            },
-            telemetry = {
-                enable = false
-            },
-        },
-    },
-    -- markdown
-    ['remark_ls']     = {},
-    -- python
-    ['pyright']       = {},
-    -- rust
-    ['rust_analyzer'] = {},
-    -- svelte
-    ['svelte']        = {},
-    -- toml
-    ['taplo']         = {},
-    -- js,ts
-    ['tsserver']      = {},
-    -- vim
-    ['vimls']         = {},
-    -- vue
-    ['vuels']         = {},
-    -- yaml
-    ['yamlls']        = {},
-}
+-- language support --
+local languages = require('imorales.lang')
 
 -- lsp keymaps --
 local keymap = {
-    ['gD']        = vim.lsp.buf.declaration,
-    ['gd']        = vim.lsp.buf.definitions,
-    ['K']         = vim.lsp.buf.hover,
-    ['gi']        = vim.lsp.buf.implementation,
-    ['<C-k>']     = vim.lsp.buf.signature_help,
-    ['<space>wa'] = vim.lsp.buf.add_workspace_folder,
-    ['<space>wr'] = vim.lsp.buf.remove_workspace_folder,
-    ['<space>D']  = vim.lsp.buf.type_definition,
-    ['<space>rn'] = vim.lsp.buf.rename,
-    ['<space>ca'] = vim.lsp.buf.code_action,
-    ['gr']        = vim.lsp.buf.references,
-    ['<space>f']  = vim.lsp.buf.formatting,
+    ['K']          = vim.lsp.buf.hover,
+    ['gD']         = vim.lsp.buf.declaration,
+    ['gd']         = vim.lsp.buf.definitions,
+    ['gi']         = vim.lsp.buf.implementation,
+    ['gr']         = vim.lsp.buf.references,
+    ['<C-k>']      = vim.lsp.buf.signature_help,
+    ['<leader>wa'] = vim.lsp.buf.add_workspace_folder,
+    ['<leader>wr'] = vim.lsp.buf.remove_workspace_folder,
+    ['<leader>D']  = vim.lsp.buf.type_definition,
+    ['<leader>rn'] = vim.lsp.buf.rename,
+    ['<leader>ca'] = vim.lsp.buf.code_action,
+    ['<leader>f']  = function() vim.lsp.buf.format(
+            {
+                async  = true,
+                filter = function(client)
+                    if client.name == 'vuels' then
+                        vim.cmd(':!yarn run vue-cli-service lint --fix')
+                        return false
+                    end
+                    return true
+                end
+            })
+    end,
 }
 
 -- lsp setup --
@@ -79,21 +46,22 @@ local on_attach = function(_, bufnr)
 
     -- attach lsp keymap
     local opts = { silent = true, buffer = bufnr }
-    for keymap, func in pairs(keymap) do
-        nnoremap(keymap, function() func() end, opts)
+    for stroke, func in pairs(keymap) do
+        nnoremap(stroke, function() func() end, opts)
     end
 end
 
+local M = {}
 local flags = {
     debounce_text_changes = 150
 }
 
-local M = {}
 function M.setup()
-    for server in pairs(servers) do
+    for lang in pairs(languages.all) do
+        local server, settings = languages.get_lsp_server(lang)
         require('lspconfig')[server].setup({
             flags     = flags,
-            settings  = servers[server],
+            settings  = settings,
             on_attach = on_attach,
         })
     end

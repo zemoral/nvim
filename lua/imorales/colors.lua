@@ -1,7 +1,4 @@
 require('imorales.treesitter')
-require('transparent').setup({
-    enable = true
-})
 
 local gradient = {
     "#262626", -- darkest
@@ -29,26 +26,60 @@ local theme = {
 }
 
 local colors = {
+    ["Search"]     = { guibg = gradient[8], guifg = gradient[1] },
+    ["Substitute"] = { guibg = gradient[8], guifg = gradient[1] },
+
     ["@include"]  = '@keyword',
     ["@operator"] = '@keyword',
+    ["@tag"]      = '@keyword',
 
+    ['@type']      = '@variable',
     ['@field']     = '@variable',
     ['@property']  = '@variable',
     ['@parameter'] = '@variable',
 
+    ["@tag.delimiter"]         = { guifg = theme['punctuation'] },
     ["@punctuation.delimiter"] = { guifg = theme['punctuation'] },
+    ["@punctuation.bracket"]   = { guifg = theme['punctuation'] },
+    ['@variable.builtin']      = { guifg = theme['punctuation'], gui = 'italic' },
 
-    ['@type']                = { guifg = theme['type'] },
-    ['@type.builtin']        = { guifg = theme['class'], gui = 'none' },
-    ['@type.go']             = '@variable',
-    ['@type.declaration.go'] = { guifg = theme['type'] },
+    ['@type.builtin']     = { guifg = theme['class'], gui = 'none' },
+    ['@type.definition']  = { guifg = theme['type'] },
+    ['@type.declaration'] = { guifg = theme['type'] },
 
-    ['@boolean']             = { guifg = theme['bool'] },
-    ['@constant.builtin.go'] = { guifg = theme['bool'] },
+    ['@boolean']          = { guifg = theme['bool'] },
+    ['@constant.builtin'] = { guifg = theme['bool'] },
+
+    --
+    -- plugins
+    --
+
+    -- lua line
+    ['GitGutterAdd']    = { guibg = gradient[2], guifg = theme['type'] },
+    ['GitGutterChange'] = { guibg = gradient[2], guifg = theme['number'] },
+    ['GitGutterDelete'] = { guibg = gradient[2], guifg = theme['keyword'] },
+
+    -- telescope
+    ['TelescopePromptNormal'] = { guibg = 'none' },
+    ['TelescopePromptBorder'] = { guibg = 'none' },
+    ['TelescopePromptPrefix'] = { guibg = 'none' },
+    ['TelescopePromptTitle']  = { guibg = theme['string'] },
+    ['TelescopeBorder']       = { guifg = theme['punctuation'] },
+
+    --
+    -- langauge specific
+    --
+    ["@none.vue"]        = '@variable',
+    ["@constructor.lua"] = { guifg = theme['punctuation'] },
 }
 
 local function setup()
-    require("base16-colorscheme").setup({
+    require('transparent').setup({
+        enable = true
+    })
+
+    local colorscheme = require('base16-colorscheme')
+    colorscheme.setup({
         base00 = gradient[1],
         base01 = gradient[2],
         base02 = gradient[3],
@@ -67,8 +98,37 @@ local function setup()
         base0F = theme['type'],
     })
 
-    for group, link in pairs(colors) do
-        require('base16-colorscheme').highlight[group] = link
+    require('nvim-web-devicons').setup()
+
+    require('lualine').setup({
+        options = {
+            theme                = 'base16',
+            component_separators = '',
+            section_separators   = '',
+        },
+        sections = {
+            lualine_a = { 'mode' },
+            lualine_b = {
+                {
+                    'branch', icon = ''
+                },
+                {
+                    'diff', diff_color = {
+                        added    = 'GitGutterAdd',
+                        modified = 'GitGutterChange',
+                        removed  = 'GitGutterDelete',
+                    }
+                }
+            },
+            lualine_c = { 'filename' },
+            lualine_x = {},
+            lualine_y = { 'filetype' },
+            lualine_z = { 'location' },
+        }
+    })
+
+    for group, color in pairs(colors) do
+        colorscheme.highlight[group] = color
     end
 end
 
