@@ -1,82 +1,72 @@
 local M = {}
 
-M.all = {
-    bash = {
-        { 'bashls' }
-    },
-
-    css = {
-        { 'cssmodules_ls' }
-    },
-
-    docker = {
-        { 'dockerls' }
-    },
-
-    go = {
-        { 'gopls' }
-    },
-
-    html = {
-        { 'html' }
-    },
-
-    json = {
-        { 'jsonls' }
-    },
-
-    lua = {
-        { 'sumneko_lua', {
-            Lua = {
-                diagnostics = {
-                    globals = {
-                        'vim'
-                    },
-                },
-                telemetry   = {
-                    enable = false
-                }
-            }
-        } },
-    },
-
-    markdown = {
-        { 'marksman' },
-    },
-
-    python = {
-        { 'pyright' }
-    },
-
-    rust = {
-        { 'rust_analyzer' }
-    },
-
-    toml = {
-        { 'taplo' }
-    },
-
-    typescript = {
-        { 'tsserver' }
-    },
-
-    vim = {
-        { 'vimls' }
-    },
-
-    vue = {
-        { 'vuels' }
-    },
-
-    yaml = {
-        { 'yamlls' }
-    }
+M.bash = {
+    lsp = 'bashls'
 }
 
-function M.get_lsp_server(lang)
-    local lsp = M.all[lang][1]
-    local server, settings = lsp[1], lsp[2] or {}
-    return server, settings
-end
+M.css = {
+    lsp = 'cssmodules_ls'
+}
+
+M.docker = {
+    lsp = 'dockerls'
+}
+
+M.go = {
+    lsp = 'gopls'
+}
+
+M.html = {
+    lsp = 'html'
+}
+
+M.json = {
+    lsp = 'jsonls'
+}
+
+M.lua = {
+    lsp = 'sumneko_lua',
+    lsp_settings = {
+        Lua = {
+            diagnostics = {
+                globals = {
+                    'vim'
+                },
+            },
+        },
+    },
+}
+
+M.markdown = {
+    lsp = 'marksman'
+}
+
+M.python = {
+    lsp = 'pyright'
+}
+
+M.rust = {
+    lsp = 'rust_analyzer'
+}
+
+M.toml = {
+    lsp = 'taplo'
+}
+
+M.typescript = {
+    lsp = 'tsserver'
+}
+
+M.vim = {
+    lsp = 'vimls'
+}
+
+M.vue = {
+    lsp = 'vuels'
+}
+
+M.yaml = {
+    lsp = 'yamlls'
+}
 
 return M

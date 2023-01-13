@@ -1,3 +1,4 @@
+local M = {}
 -- bindings --
 local Remap = require("imorales.keymap")
 local nnoremap = Remap.nnoremap
@@ -10,7 +11,8 @@ require("mason-lspconfig").setup({
 })
 
 -- language support --
-local languages = require('imorales.lang')
+local lspconfig = require("lspconfig")
+local languages = require("imorales.lang")
 
 -- lsp keymaps --
 local keymap = {
@@ -19,6 +21,7 @@ local keymap = {
     ['gd']         = vim.lsp.buf.definitions,
     ['gi']         = vim.lsp.buf.implementation,
     ['gr']         = vim.lsp.buf.references,
+    ['vd']         = vim.diagnostic.open_float,
     ['<C-k>']      = vim.lsp.buf.signature_help,
     ['<leader>wa'] = vim.lsp.buf.add_workspace_folder,
     ['<leader>wr'] = vim.lsp.buf.remove_workspace_folder,
@@ -51,17 +54,16 @@ local on_attach = function(_, bufnr)
     end
 end
 
-local M = {}
 local flags = {
     debounce_text_changes = 150
 }
 
 function M.setup()
-    for lang in pairs(languages.all) do
-        local server, settings = languages.get_lsp_server(lang)
-        require('lspconfig')[server].setup({
+    for lang in pairs(languages) do
+        local config = languages[lang]
+        lspconfig[config.lsp].setup({
             flags     = flags,
-            settings  = settings,
+            settings  = config.lsp_settings or {},
             on_attach = on_attach,
         })
     end
