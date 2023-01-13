@@ -1,7 +1,5 @@
 # nvim v0.8.0 
 
-; extends
-(type_declaration (type_spec name: (type_identifier) @type.declaration))
 ### TreeSitter Queries
 
 ## Custom Tree Sitter Captures
