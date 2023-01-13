@@ -16,5 +16,13 @@ vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 
+vim.opt.swapfile = false
+-- vim.opt.hlsearch = false
+
+vim.opt.updatetime = 50
+
+-- autocmds
+vim.cmd(":au TextYankPost * silent! lua vim.highlight.on_yank({ timeout = 75 })")
+
 -- bindings
-require('imorales.bindings')
+require('imorales.remaps')
