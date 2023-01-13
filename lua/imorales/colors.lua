@@ -19,7 +19,7 @@ local theme = {
     ['string']      = '#FFFFD7', -- yellow
     ['number']      = '#F1BC7E', -- orange
     ['class']       = '#AFAFFF', -- purple
-    ['type']        = '#92d490', -- green
+    ['type']        = '#AFFFAF', -- green
     ['bool']        = '#FFAFFF', -- pink
     ['misc']        = '#87AFAF', -- teal
     ['punctuation'] = gradient[6],
@@ -71,6 +71,8 @@ local colors = {
     --
     ["@none.vue"]        = '@variable',
     ["@constructor.lua"] = { guifg = theme['punctuation'] },
+    ["@type.typescript"] = { guifg = theme['type'] },
+    ["@keyword.force"]   = { guifg = theme['keyword'] },
 }
 
 local function setup()
