@@ -1,5 +1,0 @@
-; extends
-
-[
- "const"
-] @keyword.force
