@@ -1,5 +1,5 @@
 return require('packer').startup(function(use)
-    -- plugin
+    -- manager
     use 'wbthomason/packer.nvim'
 
     -- language servers
@@ -33,6 +33,18 @@ return require('packer').startup(function(use)
         run = 'make'
     }
 
-    -- nerdtree
-    use 'preservim/nerdtree'
+    -- nvim-tree
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons'
+        }
+    }
+
+    -- completion
+    use 'ms-jpq/coq_nvim'
+    use 'ms-jpq/coq.artifacts'
+
+    -- linting
+    use 'mfussenegger/nvim-lint'
 end)

@@ -1,31 +1,32 @@
 local M = {}
+local setup = {}
 
-M.bash = {
+setup.bash = {
     lsp = 'bashls'
 }
 
-M.css = {
+setup.css = {
     lsp = 'cssmodules_ls'
 }
 
-M.docker = {
+setup.docker = {
     lsp = 'dockerls'
 }
 
-M.go = {
+setup.go = {
     lsp = 'gopls'
 }
 
-M.html = {
+setup.html = {
     lsp = 'html'
 }
 
-M.json = {
+setup.json = {
     lsp = 'jsonls'
 }
 
-M.lua = {
-    lsp = 'sumneko_lua',
+setup.lua = {
+    lsp = 'lua_ls',
     lsp_settings = {
         Lua = {
             diagnostics = {
@@ -37,36 +38,50 @@ M.lua = {
     },
 }
 
-M.markdown = {
-    lsp = 'marksman'
+setup.markdown = {
+    lsp = 'marksman',
 }
 
-M.python = {
+setup.python = {
     lsp = 'pyright'
 }
 
-M.rust = {
+setup.rust = {
     lsp = 'rust_analyzer'
 }
 
-M.toml = {
+setup.toml = {
     lsp = 'taplo'
 }
 
-M.typescript = {
+setup.typescript = {
     lsp = 'tsserver'
 }
 
-M.vim = {
+setup.vim = {
     lsp = 'vimls'
 }
 
-M.vue = {
-    lsp = 'vuels'
+setup.vue = {
+    lsp        = 'vuels',
+    format_cmd = 'yarn run vue-cli-service lint --fix',
 }
 
-M.yaml = {
+setup.yaml = {
     lsp = 'yamlls'
 }
+
+M.all = setup
+
+function M.get_lsp(language)
+    return {
+        name     = setup[language].lsp or {},
+        settings = setup[language].lsp_settings or {},
+    }
+end
+
+function M.get_format(language)
+    return setup[language].format_cmd or false
+end
 
 return M

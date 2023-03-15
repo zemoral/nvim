@@ -1,6 +1,9 @@
 -- globals
 vim.g.mapleader = " "
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- options
 vim.opt.guicursor = ""
 
@@ -21,8 +24,3 @@ vim.opt.swapfile = false
 
 vim.opt.updatetime = 50
 
--- autocmds
-vim.cmd(":au TextYankPost * silent! lua vim.highlight.on_yank({ timeout = 75 })")
-
--- bindings
-require('imorales.remaps')

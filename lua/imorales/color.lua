@@ -1,5 +1,3 @@
-require('imorales.treesitter')
-
 local gradient = {
     "#262626", -- darkest
     "#353535",
@@ -65,6 +63,19 @@ local colors = {
     ['TelescopePromptPrefix'] = { guibg = 'none' },
     ['TelescopePromptTitle']  = { guibg = theme['string'] },
     ['TelescopeBorder']       = { guifg = theme['punctuation'] },
+
+    -- nvim-tree
+    ['NvimTreeFolderName']       = { guifg = gradient[4] },
+    ['NvimTreeEmptyFolderName']  = { guifg = gradient[4] },
+    ['NvimTreeOpenedFolderName'] = { guifg = theme['punctuation'] },
+    ['NvimTreeFolderIcon']       = { guifg = theme['punctuation'] },
+    ['NvimTreeIndentMarker']     = { guifg = theme['punctuation'] },
+    ['NvimTreeGitDirty']         = { guifg = theme['number'] },
+    ['NvimTreeGitStaged']        = { guifg = theme['number'] },
+    ['NvimTreeGitMerge']         = { guifg = theme['misc'] },
+    ['NvimTreeGitRenamed']       = { guifg = theme['number'] },
+    ['NvimTreeGitNew']           = { guifg = theme['type'] },
+    ['NvimTreeGitDeleted']       = { guifg = theme['keyword'] },
 
     --
     -- langauge specific
