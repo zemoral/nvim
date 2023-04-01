@@ -1,31 +1,35 @@
-local M = {}
-local setup = {}
+local M = { setup = {}}
 
-setup.bash = {
+-- TODO: extract language configuration from files
+-- TODO: 'projects' - multi-language configuration
+M.setup.bash = {
     lsp = 'bashls'
 }
 
-setup.css = {
+M.setup.css = {
     lsp = 'cssmodules_ls'
 }
 
-setup.docker = {
+M.setup.docker = {
     lsp = 'dockerls'
 }
 
-setup.go = {
+M.setup.go = {
     lsp = 'gopls'
 }
 
-setup.html = {
-    lsp = 'html'
+M.setup.html = {
+    lsp = 'html',
+    format_cmd = 'yarn run prettier --write'
 }
 
-setup.json = {
-    lsp = 'jsonls'
+M.setup.json = {
+    lsp        = 'jsonls',
+    lint       = 'eslint',
+    format_cmd = 'yarn run prettier --write'
 }
 
-setup.lua = {
+M.setup.lua = {
     lsp = 'lua_ls',
     lsp_settings = {
         Lua = {
@@ -38,50 +42,82 @@ setup.lua = {
     },
 }
 
-setup.markdown = {
+M.setup.markdown = {
     lsp = 'marksman',
 }
 
-setup.python = {
+M.setup.python = {
     lsp = 'pyright'
 }
 
-setup.rust = {
+M.setup.rust = {
     lsp = 'rust_analyzer'
 }
 
-setup.toml = {
+M.setup.toml = {
     lsp = 'taplo'
 }
 
-setup.typescript = {
-    lsp = 'tsserver'
+M.setup.typescript = {
+    lsp        = 'tsserver',
+    lint       = 'eslint',
+    format_cmd = 'yarn run prettier --write',
+    init       = function()
+        vim.bo.tabstop     = 2
+        vim.bo.softtabstop = 2
+        vim.bo.shiftwidth  = 2
+    end
 }
 
-setup.vim = {
+M.setup.vim = {
     lsp = 'vimls'
 }
 
-setup.vue = {
-    lsp        = 'vuels',
-    format_cmd = 'yarn run vue-cli-service lint --fix',
+-- Vue 2
+-- setup.vue = {
+--    lsp        = 'vuels',
+--    format_cmd = 'yarn run vue-cli-service lint --fix',
+--}
+
+-- Vue 3
+M.setup.vue = {
+    lsp        = 'volar',
+    lint       = 'eslint',
+    format_cmd = 'yarn run prettier --write',
+    init       = function()
+        vim.bo.tabstop     = 2
+        vim.bo.softtabstop = 2
+        vim.bo.shiftwidth  = 2
+    end
 }
 
-setup.yaml = {
+M.setup.yaml = {
     lsp = 'yamlls'
 }
 
-M.all = setup
+function M.format()
+    local language = vim.bo.filetype
+    if M.setup[language].format_cmd == nil then
+        vim.lsp.buf.format({ async = true })
+        return
+    end
+    vim.cmd(':silent execute "!' .. M.setup[language].format_cmd .. ' %"')
+end
 
-function M.get_lsp(language)
+function M.get_language_server(language)
     return {
-        name     = setup[language].lsp or {},
-        settings = setup[language].lsp_settings or {},
+        name     = M.setup[language].lsp or {},
+        settings = M.setup[language].lsp_settings or {},
     }
 end
 
-function M.get_format(language)
-    return setup[language].format_cmd or false
+function M.set_buffer_language(language)
+    if M.setup[language].lint ~= nil then
+        require("lint").linters_by_ft = { [language] = { M.setup[language].lint, } }
+    end
+    if M.setup[language].init ~= nil then
+        M.setup[language].init()
+    end
 end
 
 return M

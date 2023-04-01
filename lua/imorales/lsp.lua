@@ -1,6 +1,5 @@
 local M = {}
 
--- convenience --
 local map = require("imorales.keymap")
 local nnoremap = map.nnoremap
 
@@ -15,11 +14,10 @@ local lspconfig    = require("lspconfig")
 local languages    = require("imorales.lang")
 local autocomplete = require("coq")
 
--- lsp keybindings --
 local keymap       = {
     ['K']          = vim.lsp.buf.hover,
     ['gD']         = vim.lsp.buf.declaration,
-    ['gd']         = vim.lsp.buf.definitions,
+    ['gd']         = vim.lsp.buf.definition,
     ['gi']         = vim.lsp.buf.implementation,
     ['gr']         = vim.lsp.buf.references,
     ['vd']         = vim.diagnostic.open_float,
@@ -29,36 +27,24 @@ local keymap       = {
     ['<leader>D']  = vim.lsp.buf.type_definition,
     ['<leader>rn'] = vim.lsp.buf.rename,
     ['<leader>ca'] = vim.lsp.buf.code_action,
-    ['<leader>f']  = function()
-        local filetype = vim.bo.filetype
-        local cmd = languages.get_format(filetype)
-        if not cmd then
-            vim.lsp.buf.format({ async = true })
-            return
-        end
-        vim.cmd(':silent execute "!' .. cmd .. ' %"')
-    end,
+    ['<leader>f']  = languages.format,
 }
 
--- lsp setup --
-local on_attach    = function(_, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    local opts = { silent = true, buffer = bufnr }
-    for stroke, func in pairs(keymap) do
-        nnoremap(stroke, function() func() end, opts)
+local attach = function(_, buffer)
+    vim.api.nvim_buf_set_option(buffer, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    for key_stroke, func in pairs(keymap) do
+        nnoremap(key_stroke, function() func() end, { silent = true, buffer = buffer })
     end
+    languages.set_buffer_language(vim.bo.filetype)
 end
 
-local flags        = {
-    debounce_text_changes = 150
-}
 function M.setup()
-    for lang in pairs(languages.all) do
-        local server = languages.get_lsp(lang)
+    for lang in pairs(languages.setup) do
+        local server = languages.get_language_server(lang)
         lspconfig[server.name].setup(autocomplete.lsp_ensure_capabilities({
-            flags     = flags,
+            flags     = { debounce_text_changes = 150 },
             settings  = server.settings,
-            on_attach = on_attach,
+            on_attach = attach,
         }))
     end
 end

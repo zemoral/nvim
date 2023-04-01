@@ -87,9 +87,7 @@ local colors = {
 }
 
 local function setup()
-    require('transparent').setup({
-        enable = true
-    })
+    require('transparent').setup()
 
     local colorscheme = require('base16-colorscheme')
     colorscheme.setup({
