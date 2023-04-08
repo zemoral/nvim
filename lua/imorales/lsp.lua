@@ -15,22 +15,25 @@ local languages    = require("imorales.lang")
 local autocomplete = require("coq")
 
 local keymap       = {
+    -- 
     ['K']          = vim.lsp.buf.hover,
+    ['<C-k>']      = vim.lsp.buf.signature_help,
+    --
     ['gD']         = vim.lsp.buf.declaration,
     ['gd']         = vim.lsp.buf.definition,
+    ['gt']         = vim.lsp.buf.type_definition,
     ['gi']         = vim.lsp.buf.implementation,
     ['gr']         = vim.lsp.buf.references,
+    --
     ['vd']         = vim.diagnostic.open_float,
-    ['<C-k>']      = vim.lsp.buf.signature_help,
-    ['<leader>wa'] = vim.lsp.buf.add_workspace_folder,
-    ['<leader>wr'] = vim.lsp.buf.remove_workspace_folder,
-    ['<leader>D']  = vim.lsp.buf.type_definition,
+    --
     ['<leader>rn'] = vim.lsp.buf.rename,
     ['<leader>ca'] = vim.lsp.buf.code_action,
     ['<leader>f']  = languages.format,
+    --
 }
 
-local attach = function(_, buffer)
+local attach       = function(_, buffer)
     vim.api.nvim_buf_set_option(buffer, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     for key_stroke, func in pairs(keymap) do
         nnoremap(key_stroke, function() func() end, { silent = true, buffer = buffer })
