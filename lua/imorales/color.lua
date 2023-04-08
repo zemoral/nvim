@@ -24,66 +24,66 @@ local theme = {
 }
 
 local colors = {
-    ["Search"]     = { guibg = gradient[8], guifg = gradient[1] },
-    ["Substitute"] = { guibg = gradient[8], guifg = gradient[1] },
-
-    ["@include"]  = '@keyword',
-    ["@operator"] = '@keyword',
-    ["@tag"]      = '@keyword',
-
-    ['@type']      = '@variable',
-    ['@field']     = '@variable',
-    ['@property']  = '@variable',
-    ['@parameter'] = '@variable',
-
-    ["@tag.delimiter"]         = { guifg = theme['punctuation'] },
-    ["@punctuation.delimiter"] = { guifg = theme['punctuation'] },
-    ["@punctuation.bracket"]   = { guifg = theme['punctuation'] },
-    ['@variable.builtin']      = { guifg = theme['punctuation'], gui = 'italic' },
-
-    ['@type.builtin']     = { guifg = theme['class'], gui = 'none' },
-    ['@type.definition']  = { guifg = theme['type'] },
-    ['@type.declaration'] = { guifg = theme['type'] },
-
-    ['@boolean']          = { guifg = theme['bool'] },
-    ['@constant.builtin'] = { guifg = theme['bool'] },
-
+    --
+    ["Search"]                    = { guibg = gradient[8], guifg = gradient[1] },
+    ["Substitute"]                = { guibg = gradient[8], guifg = gradient[1] },
+    --
+    ["@include"]                  = '@keyword',
+    ["@operator"]                 = '@keyword',
+    ["@tag"]                      = '@keyword',
+    ["@exception"]                = '@keyword',
+    --
+    ['@type']                     = '@variable',
+    ['@field']                    = '@variable',
+    ['@property']                 = '@variable',
+    ['@parameter']                = '@variable',
+    --
+    ["@tag.delimiter"]            = { guifg = theme['punctuation'] },
+    ["@punctuation.delimiter"]    = { guifg = theme['punctuation'] },
+    ["@punctuation.bracket"]      = { guifg = theme['punctuation'] },
+    ['@variable.builtin']         = { guifg = theme['punctuation'], gui = 'italic' },
+    ['@type.builtin']             = { guifg = theme['class'], gui = 'none' },
+    ['@type.definition']          = { guifg = theme['type'] },
+    ['@type.declaration']         = { guifg = theme['type'] },
+    ['@boolean']                  = { guifg = theme['bool'] },
+    ['@constant.builtin']         = { guifg = theme['bool'] },
     --
     -- plugins
     --
-
     -- lua line
-    ['GitGutterAdd']    = { guibg = gradient[2], guifg = theme['type'] },
-    ['GitGutterChange'] = { guibg = gradient[2], guifg = theme['number'] },
-    ['GitGutterDelete'] = { guibg = gradient[2], guifg = theme['keyword'] },
-
+    ['GitGutterAdd']              = { guibg = gradient[2], guifg = theme['type'] },
+    ['GitGutterChange']           = { guibg = gradient[2], guifg = theme['number'] },
+    ['GitGutterDelete']           = { guibg = gradient[2], guifg = theme['keyword'] },
     -- telescope
-    ['TelescopePromptNormal'] = { guibg = 'none' },
-    ['TelescopePromptBorder'] = { guibg = 'none' },
-    ['TelescopePromptPrefix'] = { guibg = 'none' },
-    ['TelescopePromptTitle']  = { guibg = theme['string'] },
-    ['TelescopeBorder']       = { guifg = theme['punctuation'] },
-
+    ['TelescopePromptNormal']     = { guibg = 'none' },
+    ['TelescopePromptBorder']     = { guibg = 'none' },
+    ['TelescopePromptPrefix']     = { guibg = 'none' },
+    ['TelescopePromptTitle']      = { guibg = theme['string'] },
+    ['TelescopeBorder']           = { guifg = theme['punctuation'] },
     -- nvim-tree
-    ['NvimTreeFolderName']       = { guifg = gradient[4] },
-    ['NvimTreeEmptyFolderName']  = { guifg = gradient[4] },
-    ['NvimTreeOpenedFolderName'] = { guifg = theme['punctuation'] },
-    ['NvimTreeFolderIcon']       = { guifg = theme['punctuation'] },
-    ['NvimTreeIndentMarker']     = { guifg = theme['punctuation'] },
-    ['NvimTreeGitDirty']         = { guifg = theme['number'] },
-    ['NvimTreeGitStaged']        = { guifg = theme['number'] },
-    ['NvimTreeGitMerge']         = { guifg = theme['misc'] },
-    ['NvimTreeGitRenamed']       = { guifg = theme['number'] },
-    ['NvimTreeGitNew']           = { guifg = theme['type'] },
-    ['NvimTreeGitDeleted']       = { guifg = theme['keyword'] },
-
+    ['NvimTreeFolderName']        = { guifg = gradient[4] },
+    ['NvimTreeEmptyFolderName']   = { guifg = gradient[4] },
+    ['NvimTreeOpenedFolderName']  = { guifg = theme['punctuation'] },
+    ['NvimTreeFolderIcon']        = { guifg = theme['punctuation'] },
+    ['NvimTreeIndentMarker']      = { guifg = theme['punctuation'] },
+    ['NvimTreeGitDirty']          = { guifg = theme['number'] },
+    ['NvimTreeGitStaged']         = { guifg = theme['number'] },
+    ['NvimTreeGitMerge']          = { guifg = theme['misc'] },
+    ['NvimTreeGitRenamed']        = { guifg = theme['number'] },
+    ['NvimTreeGitNew']            = { guifg = theme['type'] },
+    ['NvimTreeGitDeleted']        = { guifg = theme['keyword'] },
     --
     -- langauge specific
     --
-    ["@none.vue"]        = '@variable',
-    ["@constructor.lua"] = { guifg = theme['punctuation'] },
-    ["@type.typescript"] = { guifg = theme['type'] },
-    ["@keyword.force"]   = { guifg = theme['keyword'] },
+    ["@none.vue"]                 = '@variable',
+    --
+    ["@constructor.lua"]          = { guifg = theme['punctuation'] },
+    --
+    ["@type.typescript"]          = { guifg = theme['type'] },
+    ["@keyword.force.typescript"] = { guifg = theme['keyword'] },
+    --
+    ["@type.scss"]                = { guifg = theme['keyword'] },
+    ["@type.css"]                 = { guifg = theme['keyword'] },
 }
 
 local function setup()
@@ -116,6 +116,7 @@ local function setup()
             theme                = 'base16',
             component_separators = '',
             section_separators   = '',
+            globalstatus         = true,
         },
         sections = {
             lualine_a = { 'mode' },
@@ -124,7 +125,8 @@ local function setup()
                     'branch', icon = ''
                 },
                 {
-                    'diff', diff_color = {
+                    'diff',
+                    diff_color = {
                         added    = 'GitGutterAdd',
                         modified = 'GitGutterChange',
                         removed  = 'GitGutterDelete',
