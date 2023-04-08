@@ -27,3 +27,14 @@ autocmd('BufWritePost', {
         require("lint").try_lint()
     end,
 })
+
+-- open nvim-tree before entering, auto complete
+autocmd('VimEnter', {
+    callback = function()
+        local win = vim.api.nvim_get_current_win()
+        vim.cmd(":COQnow --shut-up")
+        vim.cmd(":NvimTreeOpen")
+        vim.api.nvim_set_current_win(win)
+    end,
+})
+
