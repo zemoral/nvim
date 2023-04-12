@@ -30,9 +30,9 @@ M.setup.css = with_project(client, {
     lsp = 'cssls',
 })
 
-M.setup.scss = with_project(client, {
+M.setup.scss = {
     lsp = 'cssls',
-})
+}
 
 M.setup.docker = {
     lsp = 'dockerls'
@@ -42,9 +42,9 @@ M.setup.go = {
     lsp = 'gopls'
 }
 
-M.setup.html = with_project(client, {
+M.setup.html = {
     lsp = 'html',
-})
+}
 
 M.setup.json = with_project(client, {
     lsp = 'jsonls',
