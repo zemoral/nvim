@@ -24,8 +24,8 @@ autocmd('BufEnter', {
 -- linting
 autocmd('BufWritePost', {
     callback = function()
-        require("lint").try_lint()
-    end,
+        vim.cmd(":silent lua require('lint').try_lint()")
+    end
 })
 
 -- open nvim-tree before entering, auto complete
@@ -35,6 +35,5 @@ autocmd('VimEnter', {
         vim.cmd(":COQnow --shut-up")
         vim.cmd(":NvimTreeOpen")
         vim.api.nvim_set_current_win(win)
-    end,
+    end
 })
-
