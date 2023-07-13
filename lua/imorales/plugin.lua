@@ -40,7 +40,7 @@ require('nvim-tree').setup({
     },
     renderer = {
         icons = {
-            git_placement = 'after',
+            git_placement = 'before',
             show = {
                 git = true,
                 file = false,
@@ -70,7 +70,3 @@ require('nvim-tree').setup({
         show_on_open_dirs = false,
     }
 })
-
-----------
--- vgit --
-----------
