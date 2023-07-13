@@ -6,7 +6,6 @@ local M = { setup = {} }
 -- TODO: extract language configuration from files
 local project = {
     vue3 = {
-        lint       = 'eslint',
         format_cmd = 'yarn run prettier --write',
         init       = function()
             vim.bo.tabstop     = 2
@@ -30,24 +29,26 @@ M.setup.css = with_project(client, {
     lsp = 'cssls',
 })
 
-M.setup.scss = {
+M.setup.scss = with_project(client, {
     lsp = 'cssls',
-}
+})
 
 M.setup.docker = {
-    lsp = 'dockerls'
+    lsp = 'dockerls',
 }
 
 M.setup.go = {
-    lsp = 'gopls'
+    lsp = 'gopls',
 }
 
 M.setup.html = {
     lsp = 'html',
+    format_cmd = "yarn run prettier --write",
 }
 
 M.setup.json = with_project(client, {
-    lsp = 'jsonls',
+    lsp  = 'jsonls',
+    lint = 'eslint',
 })
 
 M.setup.lua = {
@@ -68,7 +69,8 @@ M.setup.markdown = {
 }
 
 M.setup.python = {
-    lsp = 'pyright'
+    lsp = 'pyright',
+    format_cmd = "black",
 }
 
 M.setup.rust = {
