@@ -20,6 +20,7 @@ local theme = {
     ['type']        = '#AFFFAF', -- green
     ['bool']        = '#FFAFFF', -- pink
     ['misc']        = '#87AFAF', -- teal
+    ['other']       = '#d75f87', -- maroon
     ['punctuation'] = gradient[6],
 }
 
@@ -27,6 +28,7 @@ local colors = {
     --
     ["Search"]                    = { guibg = gradient[8], guifg = gradient[1] },
     ["Substitute"]                = { guibg = gradient[8], guifg = gradient[1] },
+    --
     --
     ["@include"]                  = '@keyword',
     ["@operator"]                 = '@keyword',
@@ -36,7 +38,7 @@ local colors = {
     ['@type']                     = '@variable',
     ['@field']                    = '@variable',
     ['@property']                 = '@variable',
-    ['@parameter']                = '@variable',
+    ['@punctuation']              = { guifg = theme['punctuation'] },
     --
     ["@tag.delimiter"]            = { guifg = theme['punctuation'] },
     ["@punctuation.delimiter"]    = { guifg = theme['punctuation'] },
@@ -47,6 +49,9 @@ local colors = {
     ['@type.declaration']         = { guifg = theme['type'] },
     ['@boolean']                  = { guifg = theme['bool'] },
     ['@constant.builtin']         = { guifg = theme['bool'] },
+    --
+    ['WinSeparator']              = { guifg = gradient[1] },
+    ['VertSplit']                 = { guifg = gradient[1] },
     --
     -- plugins
     --
@@ -61,8 +66,11 @@ local colors = {
     ['TelescopePromptTitle']      = { guibg = theme['string'] },
     ['TelescopeBorder']           = { guifg = theme['punctuation'] },
     -- nvim-tree
-    ['NvimTreeFolderName']        = { guifg = gradient[4] },
-    ['NvimTreeEmptyFolderName']   = { guifg = gradient[4] },
+    ['NvimTreeImageFile']         = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeSpecialFile']       = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeRootFolder']        = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeFolderName']        = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeEmptyFolderName']   = { guifg = gradient[4], guibg = 'none' },
     ['NvimTreeOpenedFolderName']  = { guifg = theme['punctuation'] },
     ['NvimTreeFolderIcon']        = { guifg = theme['punctuation'] },
     ['NvimTreeIndentMarker']      = { guifg = theme['punctuation'] },
@@ -76,6 +84,7 @@ local colors = {
     -- langauge specific
     --
     ["@none.vue"]                 = '@variable',
+    ["@type.vue"]                 = { guifg = theme['type'] },
     --
     ["@constructor.lua"]          = { guifg = theme['punctuation'] },
     --
@@ -84,6 +93,9 @@ local colors = {
     --
     ["@type.scss"]                = { guifg = theme['keyword'] },
     ["@type.css"]                 = { guifg = theme['keyword'] },
+    --
+    ["@type.rust"]                = { guifg = theme['class'] },
+    ["@function.macro.rust"]      = { guifg = theme['other'] },
 }
 
 local function setup()

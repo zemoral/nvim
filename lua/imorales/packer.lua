@@ -41,10 +41,7 @@ return require('packer').startup(function(use)
         }
     }
 
-    -- completion
+    -- auto complete
     use 'ms-jpq/coq_nvim'
     use 'ms-jpq/coq.artifacts'
-
-    -- linting
-    use 'mfussenegger/nvim-lint'
 end)

@@ -10,21 +10,11 @@ autocmd("TextYankPost", {
 -- close nvim-tree before exiting
 autocmd('QuitPre', {
     callback = function()
+        if vim.g.ignore_quit then
+            vim.g.ignore_quit = false
+            return
+        end
         vim.cmd(":NvimTreeClose")
-    end
-})
-
--- reload folds
-autocmd('BufEnter', {
-    callback = function()
-        vim.cmd(":normal zx")
-    end
-})
-
--- linting
-autocmd('BufWritePost', {
-    callback = function()
-        vim.cmd(":silent lua require('lint').try_lint()")
     end
 })
 

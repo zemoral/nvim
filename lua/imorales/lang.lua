@@ -1,9 +1,5 @@
 local M = { setup = {} }
 
--- TODO: 'projects' - multi-language configuration
--- TODO: define, persist, & load project types
--- TODO: project type inference (resolver via fs)
--- TODO: extract language configuration from files
 local project = {
     vue3 = {
         format_cmd = 'yarn run prettier --write',
@@ -52,7 +48,7 @@ M.setup.json = with_project(client, {
 })
 
 M.setup.lua = {
-    lsp = 'lua_ls',
+    lsp          = 'lua_ls',
     lsp_settings = {
         Lua = {
             diagnostics = {
@@ -62,6 +58,7 @@ M.setup.lua = {
             },
         },
     },
+    run_cmd      = "luafile %",
 }
 
 M.setup.markdown = {
@@ -114,6 +111,14 @@ function M.format()
     vim.cmd(':silent execute "!' .. M.setup[language].format_cmd .. ' %"')
 end
 
+function M.run()
+    local language = vim.bo.filetype
+    vim.cmd(':write')
+    if M.setup[language].run_cmd ~= nil then
+        vim.cmd(':' .. M.setup[language].run_cmd)
+    end
+end
+
 function M.get_language_server(language)
     return {
         name     = M.setup[language].lsp or '',
@@ -122,9 +127,6 @@ function M.get_language_server(language)
 end
 
 function M.set_buffer_language(language)
-    if M.setup[language].lint ~= nil then
-        require("lint").linters_by_ft = { [language] = { M.setup[language].lint, } }
-    end
     if M.setup[language].init ~= nil then
         M.setup[language].init()
     end

@@ -10,12 +10,15 @@ require("mason-lspconfig").setup({
 })
 
 -- language support --
-local lspconfig    = require("lspconfig")
-local languages    = require("imorales.lang")
-local autocomplete = require("coq")
+local lspconfig = require("lspconfig")
+local languages = require("imorales.lang")
 
-local keymap       = {
-    -- 
+-- auto complete --
+local coq       = require("coq")
+
+-- keybindings --
+local keymap    = {
+    --
     ['K']          = vim.lsp.buf.hover,
     ['<C-k>']      = vim.lsp.buf.signature_help,
     --
@@ -30,10 +33,10 @@ local keymap       = {
     ['<leader>rn'] = vim.lsp.buf.rename,
     ['<leader>ca'] = vim.lsp.buf.code_action,
     ['<leader>f']  = languages.format,
-    --
+    ['<leader>%']  = languages.run,
 }
 
-local attach       = function(_, buffer)
+local attach    = function(_, buffer)
     vim.api.nvim_buf_set_option(buffer, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     for key_stroke, func in pairs(keymap) do
         nnoremap(key_stroke, function() func() end, { silent = true, buffer = buffer })
@@ -44,7 +47,7 @@ end
 function M.setup()
     for lang in pairs(languages.setup) do
         local server = languages.get_language_server(lang)
-        lspconfig[server.name].setup(autocomplete.lsp_ensure_capabilities({
+        lspconfig[server.name].setup(coq.lsp_ensure_capabilities({
             flags     = { debounce_text_changes = 150 },
             settings  = server.settings,
             on_attach = attach,
