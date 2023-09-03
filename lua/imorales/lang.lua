@@ -1,31 +1,35 @@
 local M = { setup = {} }
 
-local project = {
-    vue3 = {
-        format_cmd = 'yarn run prettier --write',
-        init       = function()
-            vim.bo.tabstop     = 2
-            vim.bo.softtabstop = 2
-            vim.bo.shiftwidth  = 2
-        end
-    }
+--------------
+-- bindings --
+--------------
+
+local prettier = {
+    format_cmd = 'yarn run prettier --write %',
+    init       = function()
+        vim.bo.tabstop     = 2
+        vim.bo.softtabstop = 2
+        vim.bo.shiftwidth  = 2
+    end
 }
 
-local with_project = function(p, settings)
-    return vim.tbl_extend("force", project[p] or {}, settings)
+local with = function(default_settings, settings)
+    return vim.tbl_extend("force", default_settings or {}, settings)
 end
 
-local client = 'vue3'
+---------------
+-- languages --
+---------------
 
 M.setup.bash = {
     lsp = 'bashls'
 }
 
-M.setup.css = with_project(client, {
+M.setup.css = with(prettier, {
     lsp = 'cssls',
 })
 
-M.setup.scss = with_project(client, {
+M.setup.scss = with(prettier, {
     lsp = 'cssls',
 })
 
@@ -39,26 +43,18 @@ M.setup.go = {
 
 M.setup.html = {
     lsp = 'html',
-    format_cmd = "yarn run prettier --write",
 }
 
-M.setup.json = with_project(client, {
+M.setup.json = with(prettier, {
     lsp  = 'jsonls',
-    lint = 'eslint',
 })
 
 M.setup.lua = {
-    lsp          = 'lua_ls',
-    lsp_settings = {
-        Lua = {
-            diagnostics = {
-                globals = {
-                    'vim'
-                },
-            },
-        },
+    lsp      = 'lua_ls',
+    settings = {
+        Lua = { diagnostics = { globals = { 'vim' } } },
     },
-    run_cmd      = "luafile %",
+    run_cmd  = "luafile %",
 }
 
 M.setup.markdown = {
@@ -66,8 +62,9 @@ M.setup.markdown = {
 }
 
 M.setup.python = {
-    lsp = 'pyright',
-    format_cmd = "black",
+    lsp        = 'pyright',
+    run_cmd    = "pipenv run %",
+    format_cmd = "black %",
 }
 
 M.setup.rust = {
@@ -78,7 +75,7 @@ M.setup.toml = {
     lsp = 'taplo'
 }
 
-M.setup.typescript = with_project(client, {
+M.setup.typescript = with(prettier, {
     lsp = 'tsserver',
 })
 
@@ -86,14 +83,7 @@ M.setup.vim = {
     lsp = 'vimls'
 }
 
--- Vue 2
--- setup.vue = {
---    lsp        = 'vuels',
---    format_cmd = 'yarn run vue-cli-service lint --fix',
---}
-
--- Vue 3
-M.setup.vue = with_project(client, {
+M.setup.vue = with(prettier, {
     lsp = 'volar',
 })
 
@@ -101,33 +91,41 @@ M.setup.yaml = {
     lsp = 'yamlls'
 }
 
+-----------------
+-- keybindings --
+-----------------
+
 function M.format()
     local language = vim.bo.filetype
     vim.cmd(':write')
-    if M.setup[language].format_cmd == nil then
+    if M.setup[language].format_cmd then
+        vim.cmd(':silent execute "!' .. M.setup[language].format_cmd)
+    else
         vim.lsp.buf.format({ async = true })
-        return
     end
-    vim.cmd(':silent execute "!' .. M.setup[language].format_cmd .. ' %"')
 end
 
 function M.run()
     local language = vim.bo.filetype
     vim.cmd(':write')
-    if M.setup[language].run_cmd ~= nil then
+    if M.setup[language].run_cmd then
         vim.cmd(':' .. M.setup[language].run_cmd)
     end
 end
 
+---------------
+-- lspconfig --
+---------------
+
 function M.get_language_server(language)
     return {
         name     = M.setup[language].lsp or '',
-        settings = M.setup[language].lsp_settings or {},
+        settings = M.setup[language].settings or {},
     }
 end
 
-function M.set_buffer_language(language)
-    if M.setup[language].init ~= nil then
+function M.on_attach(language)
+    if M.setup[language].init then
         M.setup[language].init()
     end
 end
