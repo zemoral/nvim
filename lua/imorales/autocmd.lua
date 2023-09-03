@@ -1,7 +1,11 @@
+local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+
+local imorales = augroup("imorales", { clear = true })
 
 -- highlight on yank
 autocmd("TextYankPost", {
+    group    = imorales,
     callback = function()
         vim.highlight.on_yank({ timeout = 75 })
     end
@@ -9,6 +13,7 @@ autocmd("TextYankPost", {
 
 -- close nvim-tree before exiting
 autocmd('QuitPre', {
+    group    = imorales,
     callback = function()
         if vim.g.ignore_quit then
             vim.g.ignore_quit = false
@@ -18,8 +23,9 @@ autocmd('QuitPre', {
     end
 })
 
--- open nvim-tree before entering, auto complete
+-- open nvim-tree before entering, autocomplete
 autocmd('VimEnter', {
+    group    = imorales,
     callback = function()
         local win = vim.api.nvim_get_current_win()
         vim.cmd(":COQnow --shut-up")
