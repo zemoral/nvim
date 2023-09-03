@@ -19,7 +19,7 @@ local keymap    = {
     ['gd']         = vim.lsp.buf.definition,
     ['gt']         = vim.lsp.buf.type_definition,
     ['gi']         = vim.lsp.buf.implementation,
-    ['gr']         = vim.lsp.buf.references,
+    ['gr']         = require("telescope.builtin").lsp_references,
     --
     ['vd']         = vim.diagnostic.open_float,
     --

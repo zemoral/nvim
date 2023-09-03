@@ -55,6 +55,22 @@ map.nnoremap('<C-g>', function()
     require('telescope.builtin').git_files()
 end, silent)
 
+map.nnoremap('<C-y>', function()
+    require('telescope.builtin').git_status()
+end, silent)
+
+map.nnoremap('<C-b>', function()
+    require('telescope.builtin').buffers()
+end, silent)
+
+map.nnoremap('<C-m>', function()
+    require('telescope.builtin').marks()
+end, silent)
+
+map.nnoremap('<C-o>', function()
+    require('telescope.builtin').quickfix()
+end, silent)
+
 -- nvim-tree --
 map.nnoremap('<C-n>', function()
     if vim.bo.filetype == 'NvimTree' then
