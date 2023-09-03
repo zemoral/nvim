@@ -1,3 +1,7 @@
+-----------
+-- theme --
+-----------
+
 local gradient = {
     "#262626", -- darkest
     "#353535",
@@ -24,78 +28,88 @@ local theme = {
     ['punctuation'] = gradient[6],
 }
 
+
+----------------
+-- highlights --
+----------------
+
 local colors = {
     --
-    ["Search"]                    = { guibg = gradient[8], guifg = gradient[1] },
-    ["Substitute"]                = { guibg = gradient[8], guifg = gradient[1] },
+    ["Search"]                   = { guibg = gradient[8], guifg = gradient[1] },
+    ["Substitute"]               = { guibg = gradient[8], guifg = gradient[1] },
     --
     --
-    ["@include"]                  = '@keyword',
-    ["@operator"]                 = '@keyword',
-    ["@tag"]                      = '@keyword',
-    ["@exception"]                = '@keyword',
+    ["@include"]                 = '@keyword',
+    ["@operator"]                = '@keyword',
+    ["@tag"]                     = '@keyword',
+    ["@exception"]               = '@keyword',
     --
-    ['@type']                     = '@variable',
-    ['@field']                    = '@variable',
-    ['@property']                 = '@variable',
-    ['@punctuation']              = { guifg = theme['punctuation'] },
+    ['@type']                    = '@variable',
+    ['@field']                   = '@variable',
+    ['@property']                = '@variable',
+    ['@attribute']               = '@variable',
+    ['@punctuation']             = { guifg = theme['punctuation'] },
     --
-    ["@tag.delimiter"]            = { guifg = theme['punctuation'] },
-    ["@punctuation.delimiter"]    = { guifg = theme['punctuation'] },
-    ["@punctuation.bracket"]      = { guifg = theme['punctuation'] },
-    ['@variable.builtin']         = { guifg = theme['punctuation'], gui = 'italic' },
-    ['@type.builtin']             = { guifg = theme['class'], gui = 'none' },
-    ['@type.definition']          = { guifg = theme['type'] },
-    ['@type.declaration']         = { guifg = theme['type'] },
-    ['@boolean']                  = { guifg = theme['bool'] },
-    ['@constant.builtin']         = { guifg = theme['bool'] },
+    ["@tag.attribute"]           = { guifg = theme['class'] },
+    ["@tag.delimiter"]           = { guifg = theme['punctuation'] },
+    ["@punctuation.delimiter"]   = { guifg = theme['punctuation'] },
+    ["@punctuation.bracket"]     = { guifg = theme['punctuation'] },
+    ['@variable.builtin']        = { guifg = theme['punctuation'], gui = 'italic' },
+    ['@type.builtin']            = { guifg = theme['class'], gui = 'none' },
+    ['@type.definition']         = { guifg = theme['type'] },
+    ['@type.declaration']        = { guifg = theme['type'] },
+    ['@boolean']                 = { guifg = theme['bool'] },
+    ['@constant.builtin']        = { guifg = theme['bool'] },
     --
-    ['WinSeparator']              = { guifg = gradient[1] },
-    ['VertSplit']                 = { guifg = gradient[1] },
+    ['WinSeparator']             = { guifg = gradient[1] },
+    ['VertSplit']                = { guifg = gradient[1] },
     --
     -- plugins
     --
     -- lua line
-    ['GitGutterAdd']              = { guibg = gradient[2], guifg = theme['type'] },
-    ['GitGutterChange']           = { guibg = gradient[2], guifg = theme['number'] },
-    ['GitGutterDelete']           = { guibg = gradient[2], guifg = theme['keyword'] },
+    ['GitGutterAdd']             = { guibg = gradient[2], guifg = theme['type'] },
+    ['GitGutterChange']          = { guibg = gradient[2], guifg = theme['number'] },
+    ['GitGutterDelete']          = { guibg = gradient[2], guifg = theme['keyword'] },
     -- telescope
-    ['TelescopePromptNormal']     = { guibg = 'none' },
-    ['TelescopePromptBorder']     = { guibg = 'none' },
-    ['TelescopePromptPrefix']     = { guibg = 'none' },
-    ['TelescopePromptTitle']      = { guibg = theme['string'] },
-    ['TelescopeBorder']           = { guifg = theme['punctuation'] },
+    ['TelescopePromptNormal']    = { guibg = 'none' },
+    ['TelescopePromptBorder']    = { guibg = 'none' },
+    ['TelescopePromptPrefix']    = { guibg = 'none' },
+    ['TelescopePromptTitle']     = { guibg = theme['string'] },
+    ['TelescopeBorder']          = { guifg = theme['punctuation'] },
     -- nvim-tree
-    ['NvimTreeImageFile']         = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeSpecialFile']       = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeRootFolder']        = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeFolderName']        = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeEmptyFolderName']   = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeOpenedFolderName']  = { guifg = theme['punctuation'] },
-    ['NvimTreeFolderIcon']        = { guifg = theme['punctuation'] },
-    ['NvimTreeIndentMarker']      = { guifg = theme['punctuation'] },
-    ['NvimTreeGitDirty']          = { guifg = theme['number'] },
-    ['NvimTreeGitStaged']         = { guifg = theme['number'] },
-    ['NvimTreeGitMerge']          = { guifg = theme['misc'] },
-    ['NvimTreeGitRenamed']        = { guifg = theme['number'] },
-    ['NvimTreeGitNew']            = { guifg = theme['type'] },
-    ['NvimTreeGitDeleted']        = { guifg = theme['keyword'] },
+    ['NvimTreeImageFile']        = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeSpecialFile']      = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeRootFolder']       = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeFolderName']       = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeEmptyFolderName']  = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeOpenedFolderName'] = { guifg = theme['punctuation'] },
+    ['NvimTreeFolderIcon']       = { guifg = theme['punctuation'] },
+    ['NvimTreeIndentMarker']     = { guifg = theme['punctuation'] },
+    ['NvimTreeGitDirty']         = { guifg = theme['number'] },
+    ['NvimTreeGitStaged']        = { guifg = theme['number'] },
+    ['NvimTreeGitMerge']         = { guifg = theme['misc'] },
+    ['NvimTreeGitRenamed']       = { guifg = theme['number'] },
+    ['NvimTreeGitNew']           = { guifg = theme['type'] },
+    ['NvimTreeGitDeleted']       = { guifg = theme['keyword'] },
     --
-    -- langauge specific
+    -- lsp semanic tokens
     --
-    ["@none.vue"]                 = '@variable',
-    ["@type.vue"]                 = { guifg = theme['type'] },
+    ['@lsp.type.decorator']      = { guifg = theme['misc'] },
+    ['@lsp.type.class']          = { guifg = theme['class'] },
+    ['@lsp.type.struct']         = { guifg = theme['class'] },
+    ['@lsp.type.enum']           = { guifg = theme['class'] },
+    ['@lsp.type.macro']          = { guifg = theme['other'] },
+    ['@lsp.type.interface']      = { guifg = theme['type'] },
+    ['@lsp.type.type']           = { guifg = theme['type'] },
     --
-    ["@constructor.lua"]          = { guifg = theme['punctuation'] },
+    -- language specific
     --
-    ["@type.typescript"]          = { guifg = theme['type'] },
-    ["@keyword.force.typescript"] = { guifg = theme['keyword'] },
+    ['@type.typescript']         = { guifg = theme['type'] },
     --
-    ["@type.scss"]                = { guifg = theme['keyword'] },
-    ["@type.css"]                 = { guifg = theme['keyword'] },
+    ['@constructor.lua']         = { guifg = theme['punctuation'] },
     --
-    ["@type.rust"]                = { guifg = theme['class'] },
-    ["@function.macro.rust"]      = { guifg = theme['other'] },
+    ['@type.css']                = { guifg = theme['keyword'] },
+    ['@type.scss']               = { guifg = theme['keyword'] },
 }
 
 local function setup()
