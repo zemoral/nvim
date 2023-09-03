@@ -1,10 +1,9 @@
 local map    = require("imorales.keymap")
 local silent = { silent = true }
 
--- inspect token --
-map.nnoremap('<leader>tt', function()
-    vim.cmd(":TSHighlightCapturesUnderCursor")
-end, silent)
+---------------
+-- movements --
+---------------
 
 -- line up, down --
 map.nnoremap('<C-[>', function()
@@ -14,6 +13,34 @@ end, silent)
 map.nnoremap('<C-]>', function()
     vim.cmd(':m .-2')
 end, silent)
+
+-- page up, down --
+map.nnoremap('{', '<C-U>zz', silent)
+
+map.nnoremap('}', '<C-D>zz', silent)
+
+-- yank to system clipboard --
+map.vnoremap('<A-C>', function()
+    vim.cmd(':y+"')
+end, silent)
+
+----------------
+-- inspection --
+----------------
+
+-- window --
+map.nnoremap('<leader>win', function()
+    vim.cmd(":lua print(vim.api.nvim_get_current_win())")
+end, silent)
+
+-- token --
+map.nnoremap('<leader>tt', function()
+    vim.cmd(":TSHighlightCapturesUnderCursor")
+end, silent)
+
+-------------
+-- plugins --
+-------------
 
 -- telescope --
 map.nnoremap('<C-p>', function()
@@ -26,36 +53,6 @@ end, silent)
 
 map.nnoremap('<C-g>', function()
     require('telescope.builtin').git_files()
-end, silent)
-
--- page up, down --
-map.nnoremap('{', '<C-U>zz', silent)
-
-map.nnoremap('}', '<C-D>zz', silent)
-
--- force lsp update --
-map.nnoremap('?', function()
-    vim.lsp.codelens.refresh()
-end, silent)
-
--- yank to system clipboard --
-map.vnoremap('<A-C>', function()
-    vim.cmd(':y+"')
-end, silent)
-
--- custom quit --
-map.nnoremap('<leader><esc>', function()
-    vim.g.ignore_quit = true
-    vim.cmd(":q")
-end, silent)
-
--- inspection --
-map.nnoremap('<leader>win', function()
-    vim.cmd(":lua print(vim.api.nvim_get_current_win())")
-end, silent)
-
-map.nnoremap('<leader>buf', function()
-    vim.cmd(":lua print(vim.api.nvim_get_current_buf())")
 end, silent)
 
 -- nvim-tree --
