@@ -16,7 +16,6 @@ return require('packer').startup(function(use)
     }
     use 'nvim-treesitter/playground'
     use 'RRethy/nvim-base16'
-    use 'xiyaowong/nvim-transparent'
     use 'kyazdani42/nvim-web-devicons'
     use 'nvim-lualine/lualine.nvim'
 

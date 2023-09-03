@@ -113,8 +113,6 @@ local colors = {
 }
 
 local function setup()
-    require('transparent').setup()
-
     local colorscheme = require('base16-colorscheme')
     colorscheme.setup({
         base00 = gradient[1],
