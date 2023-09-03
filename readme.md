@@ -29,6 +29,8 @@ to to ensure proper lua linting.
 1. base16-colorscheme as a base
    - https://github.com/RRethy/nvim-base16 
 2. colors customized with base16-colorscheme.highlight
+3. neovim lsp semantic token highlighting support was introduced in 0.9
+   - https://github.com/neovim/neovim/pull/21100
 
 ## Custom Patched Font
 1. downloaded from source 
@@ -47,3 +49,4 @@ to to ensure proper lua linting.
 
 ## Telescope
 1. sudo apt-get install ripgrep, fd-find; rg, fd
+
