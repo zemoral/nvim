@@ -1,20 +1,13 @@
 local M = {}
 
 local map = require("imorales.keymap")
-local nnoremap = map.nnoremap
+local language_settings = require("imorales.lang")
 
 -- automatic installation & configuration --
 require("mason").setup()
 require("mason-lspconfig").setup({
     automatic_installation = true,
 })
-
--- language support --
-local lspconfig = require("lspconfig")
-local languages = require("imorales.lang")
-
--- auto complete --
-local coq       = require("coq")
 
 -- keybindings --
 local keymap    = {
@@ -32,26 +25,30 @@ local keymap    = {
     --
     ['<leader>rn'] = vim.lsp.buf.rename,
     ['<leader>ca'] = vim.lsp.buf.code_action,
-    ['<leader>f']  = languages.format,
-    ['<leader>%']  = languages.run,
+    ['<leader>f']  = language_settings.format,
+    ['<leader>%']  = language_settings.run,
 }
 
-local attach    = function(_, buffer)
-    vim.api.nvim_buf_set_option(buffer, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+local on_attach    = function(client, buffer)
+    client.server_capabilities.semanticTokensProvider = nil
     for key_stroke, func in pairs(keymap) do
-        nnoremap(key_stroke, function() func() end, { silent = true, buffer = buffer })
+        map.nnoremap(key_stroke, function() func() end, { silent = true, buffer = buffer })
     end
-    languages.set_buffer_language(vim.bo.filetype)
+    language_settings.on_attach(vim.bo.filetype)
 end
 
 function M.setup()
-    for lang in pairs(languages.setup) do
-        local server = languages.get_language_server(lang)
-        lspconfig[server.name].setup(coq.lsp_ensure_capabilities({
-            flags     = { debounce_text_changes = 150 },
-            settings  = server.settings,
-            on_attach = attach,
-        }))
+    local lsp = require("lspconfig")
+    local auto_complete = require("coq")
+
+    for lang in pairs(language_settings.setup) do
+        local server = language_settings.get_language_server(lang)
+        local config = auto_complete.lsp_ensure_capabilities{
+            flags        = { debounce_text_changes = 150 },
+            settings     = server.settings,
+            on_attach    = on_attach,
+        }
+        lsp[server.name].setup(config)
     end
 end
 
