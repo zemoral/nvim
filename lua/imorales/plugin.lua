@@ -35,7 +35,7 @@ require('nvim-treesitter.configs').setup({
 ---------------
 require('nvim-tree').setup({
     view = {
-        width = 25
+        width = 22
     },
     renderer = {
         icons = {
@@ -63,6 +63,13 @@ require('nvim-tree').setup({
                 }
             },
         }
+    },
+    filters = {
+        git_ignored = false,
+        custom = {
+            ".git",
+            "node_modules",
+        },
     },
     git = {
         show_on_dirs = false,
