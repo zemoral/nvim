@@ -20,7 +20,8 @@ require('nvim-treesitter.configs').setup({
     auto_install          = true,
     highlight             = { enable = true },
     textobjects           = { enable = true },
-    incremental_selection = { enable = true,
+    incremental_selection = {
+        enable = true,
         keymaps = {
             init_selection    = "gnn",
             node_incremental  = "grn",

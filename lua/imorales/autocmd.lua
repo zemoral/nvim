@@ -1,6 +1,5 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-
 local imorales = augroup("imorales", { clear = true })
 
 -- highlight on yank
@@ -23,7 +22,7 @@ autocmd('QuitPre', {
     end
 })
 
--- open nvim-tree before entering, autocomplete
+-- open nvim-tree before entering, completion
 autocmd('VimEnter', {
     group    = imorales,
     callback = function()

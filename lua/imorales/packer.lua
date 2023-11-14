@@ -2,7 +2,7 @@ return require('packer').startup(function(use)
     -- manager
     use 'wbthomason/packer.nvim'
 
-    -- language servers
+    -- language server
     use {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
