@@ -1,115 +1,159 @@
------------
--- theme --
------------
-
 local gradient = {
     "#262626", -- darkest
     "#353535",
     "#444444",
     "#626262",
     "#808080",
-    "#9E9E9E",
     "#A7A7A7",
+    "#9E9E9E",
     "#AFAFAF", -- lightest
+}
+
+local pallete = {
+    blue   = '#87D7FF',
+    white  = '#EEEEEE',
+    red    = '#FF5F5F',
+    yellow = '#FFFFD7',
+    orange = '#F1BC7E',
+    purple = '#AFAFFF',
+    green  = '#AFD7AF',
+    pink   = '#FFAFFF',
+    teal   = '#87AFAF',
+    maroon = '#d75f87',
+    dark   = '#262626',
+    grey   = '#A7A7A7',
 }
 
 local theme = {
     ['background']  = gradient[1],
-    ['variable']    = '#EEEEEE', -- white
     ['function']    = '#87D7FF', -- blue
+    ['variable']    = '#EEEEEE', -- white
     ['keyword']     = '#FF5F5F', -- red
     ['string']      = '#FFFFD7', -- yellow
     ['number']      = '#F1BC7E', -- orange
     ['class']       = '#AFAFFF', -- purple
-    ['type']        = '#AFFFAF', -- green
+    ['type']        = '#AFD7AF', -- green
     ['bool']        = '#FFAFFF', -- pink
     ['misc']        = '#87AFAF', -- teal
     ['other']       = '#d75f87', -- maroon
     ['punctuation'] = gradient[6],
 }
 
+local git = {
+    new = "#AFFFAF",
+}
 
-----------------
--- highlights --
-----------------
+local icons = {
+    leaf = '󰌪',
+    owl = '',
+    matrix = '',
+    etch = '',
+    sine = '󰥛',
+    cosine = '󱑹',
+    arrow = { left = '', right = '' },
+    chevron = { left = '', right = '' },
+    circle = {
+        half    = { left = '', right = '' },
+        chevron = { left = '', right = '' },
+    },
+}
 
 local colors = {
     --
-    ["Search"]                   = { guibg = gradient[8], guifg = gradient[1] },
-    ["Substitute"]               = { guibg = gradient[8], guifg = gradient[1] },
+    -- base16 color scheme
     --
+    ['VertSplit']                   = { guifg = gradient[1] },
+    ['WinSeparator']                = { guifg = gradient[1] },
+    ["Search"]                      = { guifg = gradient[1], guibg = gradient[8] },
+    ["Substitute"]                  = { guifg = gradient[1], guibg = gradient[8] },
+    ["@include"]                    = '@keyword',
+    ["@operator"]                   = '@keyword',
+    ["@tag"]                        = '@keyword',
+    ["@exception"]                  = '@keyword',
+    ['@type']                       = '@variable',
+    ['@field']                      = '@variable',
+    ['@property']                   = '@variable',
+    ['@attribute']                  = '@variable',
+    ['@boolean']                    = { guifg = theme['bool'] },
+    ['@constant.builtin']           = { guifg = theme['bool'] },
+    ['@type.declaration']           = { guifg = theme['type'] },
+    ['@type.definition']            = { guifg = theme['type'] },
+    ['@type.builtin']               = { guifg = theme['class'] },
+    ["@tag.attribute"]              = { guifg = theme['class'] },
+    ["@tag.delimiter"]              = { guifg = theme['punctuation'] },
+    ['@punctuation']                = { guifg = theme['punctuation'] },
+    ["@punctuation.delimiter"]      = { guifg = theme['punctuation'] },
+    ["@punctuation.bracket"]        = { guifg = theme['punctuation'] },
+    ['@variable.builtin']           = { guifg = theme['punctuation'], gui = 'italic' },
     --
-    ["@include"]                 = '@keyword',
-    ["@operator"]                = '@keyword',
-    ["@tag"]                     = '@keyword',
-    ["@exception"]               = '@keyword',
+    -- lualine
     --
-    ['@type']                    = '@variable',
-    ['@field']                   = '@variable',
-    ['@property']                = '@variable',
-    ['@attribute']               = '@variable',
-    ['@punctuation']             = { guifg = theme['punctuation'] },
+    ['GitGutterAdd']                = { guibg = gradient[2], guifg = git.new },
+    ['GitGutterChange']             = { guibg = gradient[2], guifg = theme['number'] },
+    ['GitGutterDelete']             = { guibg = gradient[2], guifg = theme['keyword'] },
     --
-    ["@tag.attribute"]           = { guifg = theme['class'] },
-    ["@tag.delimiter"]           = { guifg = theme['punctuation'] },
-    ["@punctuation.delimiter"]   = { guifg = theme['punctuation'] },
-    ["@punctuation.bracket"]     = { guifg = theme['punctuation'] },
-    ['@variable.builtin']        = { guifg = theme['punctuation'], gui = 'italic' },
-    ['@type.builtin']            = { guifg = theme['class'], gui = 'none' },
-    ['@type.definition']         = { guifg = theme['type'] },
-    ['@type.declaration']        = { guifg = theme['type'] },
-    ['@boolean']                 = { guifg = theme['bool'] },
-    ['@constant.builtin']        = { guifg = theme['bool'] },
-    --
-    ['WinSeparator']             = { guifg = gradient[1] },
-    ['VertSplit']                = { guifg = gradient[1] },
-    --
-    -- plugins
-    --
-    -- lua line
-    ['GitGutterAdd']             = { guibg = gradient[2], guifg = theme['type'] },
-    ['GitGutterChange']          = { guibg = gradient[2], guifg = theme['number'] },
-    ['GitGutterDelete']          = { guibg = gradient[2], guifg = theme['keyword'] },
     -- telescope
-    ['TelescopePromptNormal']    = { guibg = 'none' },
-    ['TelescopePromptBorder']    = { guibg = 'none' },
-    ['TelescopePromptPrefix']    = { guibg = 'none' },
-    ['TelescopePromptTitle']     = { guibg = theme['string'] },
-    ['TelescopeBorder']          = { guifg = theme['punctuation'] },
+    --
+    ['TelescopePromptNormal']       = { guibg = 'none' },
+    ['TelescopePromptBorder']       = { guibg = 'none' },
+    ['TelescopePromptPrefix']       = { guibg = 'none' },
+    ['TelescopePromptTitle']        = { guibg = theme['string'], guifg = 'none' },
+    ['TelescopeBorder']             = { guifg = theme['punctuation'] },
+    --
     -- nvim-tree
-    ['NvimTreeImageFile']        = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeSpecialFile']      = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeRootFolder']       = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeFolderName']       = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeEmptyFolderName']  = { guifg = gradient[4], guibg = 'none' },
-    ['NvimTreeOpenedFolderName'] = { guifg = theme['punctuation'] },
-    ['NvimTreeFolderIcon']       = { guifg = theme['punctuation'] },
-    ['NvimTreeIndentMarker']     = { guifg = theme['punctuation'] },
-    ['NvimTreeGitDirty']         = { guifg = theme['number'] },
-    ['NvimTreeGitStaged']        = { guifg = theme['number'] },
-    ['NvimTreeGitMerge']         = { guifg = theme['misc'] },
-    ['NvimTreeGitRenamed']       = { guifg = theme['number'] },
-    ['NvimTreeGitNew']           = { guifg = theme['type'] },
-    ['NvimTreeGitDeleted']       = { guifg = theme['keyword'] },
     --
-    -- lsp semanic tokens
+    ['NvimTreeImageFile']           = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeSpecialFile']         = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeRootFolder']          = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeFolderName']          = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeEmptyFolderName']     = { guifg = gradient[4], guibg = 'none' },
+    ['NvimTreeOpenedFolderName']    = { guifg = theme['punctuation'] },
+    ['NvimTreeFolderIcon']          = { guifg = theme['punctuation'] },
+    ['NvimTreeIndentMarker']        = { guifg = theme['punctuation'] },
+    ['NvimTreeGitDirty']            = { guifg = theme['number'] },
+    ['NvimTreeGitStaged']           = { guifg = theme['number'] },
+    ['NvimTreeGitMerge']            = { guifg = theme['misc'] },
+    ['NvimTreeGitRenamed']          = { guifg = theme['number'] },
+    ['NvimTreeGitNew']              = { guifg = git.new },
+    ['NvimTreeGitDeleted']          = { guifg = theme['keyword'] },
     --
-    ['@lsp.type.decorator']      = { guifg = theme['misc'] },
-    ['@lsp.type.class']          = { guifg = theme['class'] },
-    ['@lsp.type.struct']         = { guifg = theme['class'] },
-    ['@lsp.type.enum']           = { guifg = theme['class'] },
-    ['@lsp.type.macro']          = { guifg = theme['other'] },
-    ['@lsp.type.interface']      = { guifg = theme['type'] },
-    ['@lsp.type.type']           = { guifg = theme['type'] },
+    -- semantic tokens
+    --
+    ['@lsp.type.class']             = { guifg = theme['variable'] },
+    ['@lsp.type.decorator']         = { guifg = theme['other'] },
+    ['@lsp.type.enum']              = { guifg = theme['variable'] },
+    ['@lsp.type.enumMember']        = { guifg = theme['type'] },
+    ['@lsp.type.function']          = { guifg = theme['function'] },
+    ['@lsp.type.interface']         = { guifg = theme['type'] },
+    ['@lsp.type.macro']             = { guifg = theme['other'] },
+    ['@lsp.type.method']            = { guifg = theme['function'] },
+    ['@lsp.type.namespace']         = { guifg = theme['variable'] },
+    ['@lsp.type.struct']            = { guifg = theme['variable'] },
+    ['@lsp.type.type']              = { guifg = theme['variable'] },
+    ['@lsp.type.typeParameter']     = { guifg = theme['variable'] },
+    ['@lsp.type.variable']          = { guifg = theme['variable'] },
     --
     -- language specific
     --
-    ['@type.typescript']         = { guifg = theme['type'] },
-    --
-    ['@constructor.lua']         = { guifg = theme['punctuation'] },
-    --
-    ['@type.css']                = { guifg = theme['keyword'] },
-    ['@type.scss']               = { guifg = theme['keyword'] },
+    -- rust
+    ['@lsp.type.type.rust']         = { guifg = theme['type'] },
+    ['@lsp.type.interface.rust']    = { guifg = theme['type'] },
+    ['@lsp.type.struct.rust']       = { guifg = theme['type'] },
+    ['@lsp.type.enum.rust']         = { guifg = theme['type'] },
+    ['@lsp.type.enumMember.rust']   = { guifg = theme['number'] },
+    ['@constant.builtin.rust']      = { guifg = theme['number'] },
+    ['@storageclass.lifetime.rust'] = { guifg = theme['misc'] },
+    ['@function.macro.rust']        = { guifg = theme['other'] },
+    -- python
+    ['@attribute.python']           = { guifg = theme['class'] },
+    ['@attribute.builtin.python']   = { guifg = theme['class'] },
+    -- css
+    ['@type.css']                   = { guifg = theme['keyword'] },
+    ['@type.scss']                  = { guifg = theme['keyword'] },
+    -- lua
+    ['@constructor.lua']            = { guifg = theme['punctuation'] },
+    -- typescript
+    ['@type.typescript']            = { guifg = theme['type'] },
 }
 
 local function setup()
@@ -143,10 +187,23 @@ local function setup()
             globalstatus         = true,
         },
         sections = {
-            lualine_a = { 'mode' },
+            lualine_a = {
+                {
+                    'mode',
+                    separator = {
+                        left  = '',
+                        right = icons.circle.half.right,
+                    }
+                },
+            },
             lualine_b = {
                 {
-                    'branch', icon = ''
+                    'branch',
+                    icon = '',
+                    separator = {
+                        left  = '',
+                        right = icons.circle.half.right,
+                    },
                 },
                 {
                     'diff',
@@ -154,13 +211,34 @@ local function setup()
                         added    = 'GitGutterAdd',
                         modified = 'GitGutterChange',
                         removed  = 'GitGutterDelete',
+                    },
+                }
+            },
+            lualine_c = {
+                {
+                    'filename',
+                    align = 'left'
+                }
+            },
+            lualine_x = {},
+            lualine_y = {
+                {
+                    'filetype',
+                    separator = {
+                        left  = icons.circle.half.left,
+                        right = '',
                     }
                 }
             },
-            lualine_c = { 'filename' },
-            lualine_x = {},
-            lualine_y = { 'filetype' },
-            lualine_z = { 'location' },
+            lualine_z = {
+                {
+                    'location',
+                    separator = {
+                        left  = icons.circle.half.left,
+                        right = '',
+                    }
+                }
+            },
         }
     })
 
