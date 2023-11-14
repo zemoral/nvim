@@ -76,3 +76,16 @@ require('nvim-tree').setup({
         show_on_open_dirs = false,
     }
 })
+
+
+---------
+-- coq --
+---------
+-- https://github.com/ms-jpq/coq_nvim/issues/411
+vim.g.coq_settings = {
+    clients = {
+        snippets = {
+            warn = {},
+        }
+    },
+}

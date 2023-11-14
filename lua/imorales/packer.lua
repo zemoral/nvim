@@ -41,7 +41,9 @@ return require('packer').startup(function(use)
         }
     }
 
-    -- auto complete
-    use 'ms-jpq/coq_nvim'
-    use 'ms-jpq/coq.artifacts'
+    -- completion
+    use {
+        'ms-jpq/coq_nvim',
+        branch = 'coq',
+    }
 end)
