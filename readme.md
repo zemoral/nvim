@@ -45,8 +45,9 @@ to to ensure proper lua linting.
     - svn checkout https://github.com/ryanoasis/nerd-fonts/trunk/src/glyphs
 6. execute the command
     - mkdir patched && ./FontForge.AppImage -script $PWD/font-patcher $PWD/$FONT_DIR_PATH/*.ttf $pwd/patched --compete
-7. transfer and download back in windows, set in settings
 
 ## Telescope
 1. sudo apt-get install ripgrep, fd-find; rg, fd
+2. link fdfind to fd - its used by another package so must be manually linked
+-  ln -s $(which fdfind) /usr/bin/fd
 
