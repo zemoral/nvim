@@ -1,11 +1,10 @@
 local M = { setup = {} }
 
 --------------
--- bindings --
+-- projects --
 --------------
-
-local prettier = {
-    format_cmd = 'yarn run prettier --write %',
+local yarn = {
+    format_cmd = '!yarn run prettier --write %',
     init       = function()
         vim.bo.tabstop     = 2
         vim.bo.softtabstop = 2
@@ -20,16 +19,15 @@ end
 ---------------
 -- languages --
 ---------------
-
 M.setup.bash = {
     lsp = 'bashls'
 }
 
-M.setup.css = with(prettier, {
+M.setup.css = with(yarn, {
     lsp = 'cssls',
 })
 
-M.setup.scss = with(prettier, {
+M.setup.scss = with(yarn, {
     lsp = 'cssls',
 })
 
@@ -45,8 +43,8 @@ M.setup.html = {
     lsp = 'html',
 }
 
-M.setup.json = with(prettier, {
-    lsp  = 'jsonls',
+M.setup.json = with(yarn, {
+    lsp = 'jsonls',
 })
 
 M.setup.lua = {
@@ -62,20 +60,21 @@ M.setup.markdown = {
 }
 
 M.setup.python = {
-    lsp        = 'pyright',
-    run_cmd    = "pipenv run %",
-    format_cmd = "black %",
+    lsp     = 'pyright',
+    run_cmd = "!python3 %",
+    fmt_cmd = "!isort % && black %",
 }
 
 M.setup.rust = {
-    lsp = 'rust_analyzer'
+    lsp     = 'rust_analyzer',
+    fmt_cmd = "!rustfmt %",
 }
 
 M.setup.toml = {
     lsp = 'taplo'
 }
 
-M.setup.typescript = with(prettier, {
+M.setup.typescript = with(yarn, {
     lsp = 'tsserver',
 })
 
@@ -83,23 +82,25 @@ M.setup.vim = {
     lsp = 'vimls'
 }
 
-M.setup.vue = with(prettier, {
+M.setup.vue = with(yarn, {
     lsp = 'volar',
 })
 
 M.setup.yaml = {
-    lsp = 'yamlls'
+    lsp      = 'yamlls',
+    settings = {
+        yaml = { keyOrdering = false }
+    }
 }
 
------------------
--- keybindings --
------------------
-
+--------------
+-- commands --
+--------------
 function M.format()
     local language = vim.bo.filetype
-    vim.cmd(':write')
-    if M.setup[language].format_cmd then
-        vim.cmd(':silent execute "!' .. M.setup[language].format_cmd)
+    vim.cmd.write()
+    if M.setup[language].fmt_cmd then
+        vim.cmd(':silent execute "' .. M.setup[language].fmt_cmd .. '"')
     else
         vim.lsp.buf.format({ async = true })
     end
@@ -107,8 +108,9 @@ end
 
 function M.run()
     local language = vim.bo.filetype
-    vim.cmd(':write')
     if M.setup[language].run_cmd then
+        vim.cmd(':write')
+        vim.cmd(':messages clear')
         vim.cmd(':' .. M.setup[language].run_cmd)
     end
 end
@@ -116,7 +118,6 @@ end
 ---------------
 -- lspconfig --
 ---------------
-
 function M.get_language_server(language)
     return {
         name     = M.setup[language].lsp or '',
