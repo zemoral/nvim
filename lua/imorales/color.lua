@@ -19,23 +19,21 @@ local pallete = {
     green  = '#AFD7AF',
     pink   = '#FFAFFF',
     teal   = '#87AFAF',
-    maroon = '#d75f87',
-    dark   = '#262626',
-    grey   = '#A7A7A7',
+    maroon = '#D75F87',
 }
 
 local theme = {
+    ['function']    = pallete.blue,
+    ['variable']    = pallete.white,
+    ['keyword']     = pallete.red,
+    ['string']      = pallete.yellow,
+    ['number']      = pallete.orange,
+    ['class']       = pallete.purple,
+    ['type']        = pallete.green,
+    ['bool']        = pallete.pink,
+    ['misc']        = pallete.teal,
+    ['other']       = pallete.maroon,
     ['background']  = gradient[1],
-    ['function']    = '#87D7FF', -- blue
-    ['variable']    = '#EEEEEE', -- white
-    ['keyword']     = '#FF5F5F', -- red
-    ['string']      = '#FFFFD7', -- yellow
-    ['number']      = '#F1BC7E', -- orange
-    ['class']       = '#AFAFFF', -- purple
-    ['type']        = '#AFD7AF', -- green
-    ['bool']        = '#FFAFFF', -- pink
-    ['misc']        = '#87AFAF', -- teal
-    ['other']       = '#d75f87', -- maroon
     ['punctuation'] = gradient[6],
 }
 
@@ -44,15 +42,15 @@ local git = {
 }
 
 local icons = {
-    leaf = '󰌪',
-    owl = '',
-    matrix = '',
-    etch = '',
-    sine = '󰥛',
-    cosine = '󱑹',
-    arrow = { left = '', right = '' },
+    leaf    = '󰌪',
+    owl     = '',
+    matrix  = '',
+    etch    = '',
+    sine    = '󰥛',
+    cosine  = '󱑹',
+    arrow   = { left = '', right = '' },
     chevron = { left = '', right = '' },
-    circle = {
+    circle  = {
         half    = { left = '', right = '' },
         chevron = { left = '', right = '' },
     },
@@ -137,27 +135,32 @@ local colors = {
     --
     -- rust
     ['@lsp.type.type.rust']         = { guifg = theme['type'] },
-    ['@lsp.type.interface.rust']    = { guifg = theme['type'] },
-    ['@lsp.type.struct.rust']       = { guifg = theme['type'] },
     ['@lsp.type.enum.rust']         = { guifg = theme['type'] },
+    ['@lsp.type.struct.rust']       = { guifg = theme['type'] },
+    ['@lsp.type.interface.rust']    = { guifg = theme['type'] },
     ['@lsp.type.enumMember.rust']   = { guifg = theme['number'] },
+    ['@function.macro.rust']        = { guifg = theme['other'] },
     ['@constant.builtin.rust']      = { guifg = theme['number'] },
     ['@storageclass.lifetime.rust'] = { guifg = theme['misc'] },
-    ['@function.macro.rust']        = { guifg = theme['other'] },
-    -- python
-    ['@attribute.python']           = { guifg = theme['class'] },
-    ['@attribute.builtin.python']   = { guifg = theme['class'] },
+    -- lua
+    ['@constructor.lua']            = { guifg = theme['punctuation'] },
     -- css
     ['@type.css']                   = { guifg = theme['keyword'] },
     ['@type.scss']                  = { guifg = theme['keyword'] },
-    -- lua
-    ['@constructor.lua']            = { guifg = theme['punctuation'] },
+    -- python
+    ['@attribute.python']           = { guifg = theme['class'] },
+    ['@attribute.builtin.python']   = { guifg = theme['class'] },
     -- typescript
     ['@type.typescript']            = { guifg = theme['type'] },
+    ['@attribute.typescript']       = { guifg = theme['misc'] },
 }
 
 local function setup()
+    local devicons = require('nvim-web-devicons')
+    local statusbar = require('lualine')
     local colorscheme = require('base16-colorscheme')
+
+    -- setup custom base16 color scheme
     colorscheme.setup({
         base00 = gradient[1],
         base01 = gradient[2],
@@ -176,15 +179,15 @@ local function setup()
         base0E = theme['keyword'],
         base0F = theme['type'],
     })
-
-    require('nvim-web-devicons').setup()
-
-    require('lualine').setup({
+    -- setup icons for dependents (inherit defaults from color scheme)
+    devicons.setup()
+    -- setup status bar with base16 color scheme (inherit defualts from color scheme)
+    statusbar.setup({
         options = {
             theme                = 'base16',
+            globalstatus         = true,
             component_separators = '',
             section_separators   = '',
-            globalstatus         = true,
         },
         sections = {
             lualine_a = {
@@ -241,7 +244,7 @@ local function setup()
             },
         }
     })
-
+    -- apply custom base16 color scheme overrides
     for group, color in pairs(colors) do
         colorscheme.highlight[group] = color
     end

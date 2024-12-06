@@ -19,6 +19,10 @@ end
 ---------------
 -- languages --
 ---------------
+M.setup.astro = with(yarn, {
+    lsp = 'astro'
+})
+
 M.setup.bash = {
     lsp = 'bashls'
 }
@@ -83,7 +87,8 @@ M.setup.vim = {
 }
 
 M.setup.vue = with(yarn, {
-    lsp = 'volar',
+    lsp = 'vuels',
+    fmt_cmd = '!yarn run prettier --write %',
 })
 
 M.setup.yaml = {
@@ -99,8 +104,8 @@ M.setup.yaml = {
 function M.format()
     local language = vim.bo.filetype
     vim.cmd.write()
-    if M.setup[language].fmt_cmd then
-        vim.cmd(':silent execute "' .. M.setup[language].fmt_cmd .. '"')
+    if M.setup[language] and M.setup[language].fmt_cmd then
+        vim.cmd(':silent execute ":' .. M.setup[language].fmt_cmd .. '"')
     else
         vim.lsp.buf.format({ async = true })
     end
@@ -108,7 +113,7 @@ end
 
 function M.run()
     local language = vim.bo.filetype
-    if M.setup[language].run_cmd then
+    if M.setup[language] and M.setup[language].run_cmd then
         vim.cmd(':write')
         vim.cmd(':messages clear')
         vim.cmd(':' .. M.setup[language].run_cmd)
