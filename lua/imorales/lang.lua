@@ -88,7 +88,6 @@ M.setup.vim = {
 
 M.setup.vue = with(yarn, {
     lsp = 'vuels',
-    fmt_cmd = '!yarn run prettier --write %',
 })
 
 M.setup.yaml = {
