@@ -1,6 +1,7 @@
 # nvim v0.8.0 
 
 ## Lua Language Server
+
 Historically, the primary lua language server was named `sumneko_lua`. 
 The server name was changed circa Q1 2023 to `lua_ls`
 
@@ -33,18 +34,8 @@ to to ensure proper lua linting.
    - https://github.com/neovim/neovim/pull/21100
 
 ## Custom Patched Font
-1. downloaded from source 
+1. nerd font patched custom recursive fonts
     - https://www.recursive.design
-2. moved into wsl 
-    - $ transfer windows $FONT_DIR_PATH
-3. font-patcher script download
-    - wget https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/font-patcher
-4. font-forge app image downloaded
-    - wget https://github.com/fontforge/fontforge/releases/download/20220308/FontForge-2022-03-08-582bd41-x86_64.AppImage
-5. download all the glyphs required, but not the entire repo
-    - svn checkout https://github.com/ryanoasis/nerd-fonts/trunk/src/glyphs
-6. execute the command
-    - mkdir patched && ./FontForge.AppImage -script $PWD/font-patcher $PWD/$FONT_DIR_PATH/*.ttf $pwd/patched --compete
 
 ## Telescope
 1. sudo apt-get install ripgrep, fd-find; rg, fd
