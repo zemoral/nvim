@@ -10,7 +10,7 @@ vim.g.loaded_netrwPlugin = 1
 -- options --
 -------------
 vim.opt.nu = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 
 vim.opt.hlsearch = false
 vim.opt.termguicolors = true
