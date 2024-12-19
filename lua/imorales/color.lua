@@ -48,11 +48,56 @@ local icons = {
     etch    = '',
     sine    = '󰥛',
     cosine  = '󱑹',
+    branch  = '',
     arrow   = { left = '', right = '' },
     chevron = { left = '', right = '' },
     circle  = {
         half    = { left = '', right = '' },
         chevron = { left = '', right = '' },
+    },
+}
+
+local widgets = {
+    mode     = {
+        'mode',
+        separator = {
+            left  = '',
+            right = icons.circle.half.right,
+        }
+    },
+    branch   = {
+        'branch',
+        icon = icons.branch,
+        separator = {
+            left  = '',
+            right = icons.circle.half.right,
+        },
+    },
+    diff     = {
+        'diff',
+        diff_color = {
+            added    = 'GitGutterAdd',
+            modified = 'GitGutterChange',
+            removed  = 'GitGutterDelete',
+        },
+    },
+    filename = {
+        'filename',
+        align = 'left'
+    },
+    filetype = {
+        'filetype',
+        separator = {
+            left  = icons.circle.half.left,
+            right = '',
+        }
+    },
+    location = {
+        'location',
+        separator = {
+            left  = icons.circle.half.left,
+            right = '',
+        }
     },
 }
 
@@ -190,58 +235,12 @@ local function setup()
             section_separators   = '',
         },
         sections = {
-            lualine_a = {
-                {
-                    'mode',
-                    separator = {
-                        left  = '',
-                        right = icons.circle.half.right,
-                    }
-                },
-            },
-            lualine_b = {
-                {
-                    'branch',
-                    icon = '',
-                    separator = {
-                        left  = '',
-                        right = icons.circle.half.right,
-                    },
-                },
-                {
-                    'diff',
-                    diff_color = {
-                        added    = 'GitGutterAdd',
-                        modified = 'GitGutterChange',
-                        removed  = 'GitGutterDelete',
-                    },
-                }
-            },
-            lualine_c = {
-                {
-                    'filename',
-                    align = 'left'
-                }
-            },
+            lualine_a = { widgets.mode },
+            lualine_b = { widgets.branch, widgets.diff },
+            lualine_c = { widgets.filename },
             lualine_x = {},
-            lualine_y = {
-                {
-                    'filetype',
-                    separator = {
-                        left  = icons.circle.half.left,
-                        right = '',
-                    }
-                }
-            },
-            lualine_z = {
-                {
-                    'location',
-                    separator = {
-                        left  = icons.circle.half.left,
-                        right = '',
-                    }
-                }
-            },
+            lualine_y = { widgets.filetype },
+            lualine_z = { widgets.location },
         }
     })
     -- apply custom base16 color scheme overrides
