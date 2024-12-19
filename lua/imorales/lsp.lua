@@ -1,6 +1,7 @@
-local M = {}
+local M        = {}
 
-local map = require("imorales.keymap")
+local map      = require("imorales.keymap")
+local keybind  = require("imorales.keybind")
 local language = require("imorales.lang")
 
 ------------------------------------------
@@ -12,29 +13,11 @@ require("mason-lspconfig").setup({
 })
 require("coq")
 
-------------------
--- key bindings --
-------------------
-local keymap    = {
-    --
-    ['K']          = vim.lsp.buf.hover,
-    ['<C-k>']      = vim.lsp.buf.signature_help,
-    --
-    ['gD']         = vim.lsp.buf.declaration,
-    ['gd']         = vim.lsp.buf.definition,
-    ['gt']         = vim.lsp.buf.type_definition,
-    ['gi']         = vim.lsp.buf.implementation,
-    ['gr']         = require("telescope.builtin").lsp_references,
-    --
-    ['vd']         = vim.diagnostic.open_float,
-    --
-    ['<leader>rn'] = vim.lsp.buf.rename,
-    ['<leader>ca'] = vim.lsp.buf.code_action,
-}
+--
 
 local on_attach = function(client, buffer)
     client.server_capabilities.semanticTokensProvider = nil
-    for key_stroke, callback in pairs(keymap) do
+    for key_stroke, callback in pairs(keybind.lsp.nnoremap) do
         map.nnoremap(key_stroke, callback, {
             silent = true,
             buffer = buffer,

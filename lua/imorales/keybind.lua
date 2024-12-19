@@ -1,3 +1,5 @@
+local M         = {}
+
 local keymap    = require("imorales.keymap")
 local language  = require("imorales.lang")
 local telescope = require('telescope.builtin')
@@ -42,6 +44,26 @@ keymap.nnoremap('<leader>f', language.format, silent)
 -- runner
 keymap.nnoremap('<leader>%', language.run)
 
+-- lsp assigned on_attach
+M.lsp = {
+    nnoremap = {
+        --
+        ['K']          = vim.lsp.buf.hover,
+        ['<C-k>']      = vim.lsp.buf.signature_help,
+        --
+        ['gD']         = vim.lsp.buf.declaration,
+        ['gd']         = vim.lsp.buf.definition,
+        ['gt']         = vim.lsp.buf.type_definition,
+        ['gi']         = vim.lsp.buf.implementation,
+        ['gr']         = telescope.lsp_references,
+        --
+        ['vd']         = vim.diagnostic.open_float,
+        --
+        ['<leader>rn'] = vim.lsp.buf.rename,
+        ['<leader>ca'] = vim.lsp.buf.code_action,
+    }
+}
+
 -------------
 -- plugins --
 -------------
@@ -73,3 +95,6 @@ end, silent)
 keymap.nnoremap('NN', function()
     vim.cmd(":NvimTreeToggle")
 end, silent)
+
+--
+return M
