@@ -101,9 +101,9 @@ M.setup.yaml = {
 -- commands --
 --------------
 function M.format()
-    local language = vim.bo.filetype
     vim.cmd.write()
-    if M.setup[language] and M.setup[language].fmt_cmd then
+    local language = M.setup[vim.bo.filetype]
+    if language and language.fmt_cmd then
         vim.cmd(':silent execute ":' .. M.setup[language].fmt_cmd .. '"')
     else
         vim.lsp.buf.format({ async = true })
@@ -111,11 +111,11 @@ function M.format()
 end
 
 function M.run()
-    local language = vim.bo.filetype
-    if M.setup[language] and M.setup[language].run_cmd then
+    local language = M.setup[vim.bo.filetype]
+    if language and language.run_cmd then
         vim.cmd(':write')
         vim.cmd(':messages clear')
-        vim.cmd(':' .. M.setup[language].run_cmd)
+        vim.cmd(':' .. language.run_cmd)
     end
 end
 
