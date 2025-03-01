@@ -1,4 +1,4 @@
-# nvim v0.8.0 
+# nvim v0.10.2 
 
 ## Lua Language Server
 
