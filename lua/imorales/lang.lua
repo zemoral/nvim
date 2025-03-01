@@ -52,11 +52,11 @@ M.setup.json = with(yarn, {
 })
 
 M.setup.lua = {
-    lsp      = 'lua_ls',
-    settings = {
+    lsp          = 'lua_ls',
+    lsp_settings = {
         Lua = { diagnostics = { globals = { 'vim' } } },
     },
-    run_cmd  = "luafile %",
+    run_cmd      = "luafile %",
 }
 
 M.setup.markdown = {
@@ -71,7 +71,7 @@ M.setup.python = {
 
 M.setup.rust = {
     lsp     = 'rust_analyzer',
-    fmt_cmd = "!rustfmt %",
+    fmt_cmd = "!cargo +nightly fmt -- %",
 }
 
 M.setup.toml = {
@@ -91,8 +91,8 @@ M.setup.vue = with(yarn, {
 })
 
 M.setup.yaml = {
-    lsp      = 'yamlls',
-    settings = {
+    lsp          = 'yamlls',
+    lsp_settings = {
         yaml = { keyOrdering = false }
     }
 }
@@ -124,8 +124,8 @@ end
 ---------------
 function M.get_language_server(language)
     return {
-        name     = M.setup[language].lsp or '',
-        settings = M.setup[language].settings or {},
+        name     = configured.lsp or '',
+        settings = configured.lsp_settings or {},
     }
 end
 
