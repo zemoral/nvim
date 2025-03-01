@@ -101,21 +101,20 @@ M.setup.yaml = {
 -- commands --
 --------------
 function M.format()
-    vim.cmd.write()
-    local language = M.setup[vim.bo.filetype]
-    if language and language.fmt_cmd then
-        vim.cmd(':silent execute ":' .. M.setup[language].fmt_cmd .. '"')
+    local language = vim.bo.filetype
+    local configured = M.setup[language]
+    if configured and configured.fmt_cmd then
+        vim.cmd(':silent execute ":' .. configured.fmt_cmd .. '"')
     else
         vim.lsp.buf.format({ async = true })
     end
 end
 
 function M.run()
-    local language = M.setup[vim.bo.filetype]
-    if language and language.run_cmd then
-        vim.cmd(':write')
-        vim.cmd(':messages clear')
-        vim.cmd(':' .. language.run_cmd)
+    local language = vim.bo.filetype
+    local configured = M.setup[language]
+    if configured and configured.run_cmd then
+        vim.cmd(':' .. configured.run_cmd)
     end
 end
 
@@ -123,6 +122,10 @@ end
 -- lspconfig --
 ---------------
 function M.get_language_server(language)
+    local configured = M.setup[language];
+    if configured == nil then
+        return { name = '', settings = {} }
+    end
     return {
         name     = configured.lsp or '',
         settings = configured.lsp_settings or {},
@@ -130,8 +133,9 @@ function M.get_language_server(language)
 end
 
 function M.on_attach(language)
-    if M.setup[language].init then
-        M.setup[language].init()
+    local configured = M.setup[language]
+    if configured and configured.init then
+        configured.init()
     end
 end
 
