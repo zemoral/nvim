@@ -65,7 +65,7 @@ M.setup.markdown = {
 
 M.setup.python = {
     lsp     = 'pyright',
-    run_cmd = "!python3 %",
+    run_cmd = "!python %",
     fmt_cmd = "!isort % && black %",
 }
 
