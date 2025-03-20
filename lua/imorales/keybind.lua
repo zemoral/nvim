@@ -85,7 +85,7 @@ M.lsp = {
 
 -- treesitter token
 keymap.nnoremap('<leader>tt', function()
-    vim.cmd(":TSHighlightCapturesUnderCursor")
+    vim.cmd(":Inspect")
 end)
 
 -- telescope
