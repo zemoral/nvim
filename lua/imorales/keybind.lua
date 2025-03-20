@@ -17,6 +17,21 @@ keymap.nnoremap('<C-]>', function() vim.cmd(':m .-2') end, silent)
 keymap.nnoremap('}', '<C-U>zz', silent)
 keymap.nnoremap('{', '<C-D>zz', silent)
 
+
+-- resize window
+local function resize_width(delta)
+    local win = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_width(win, vim.api.nvim_win_get_width(win) + delta)
+end
+local function resize_height(delta)
+    local win = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_height(win, vim.api.nvim_win_get_height(win) + delta)
+end
+keymap.nnoremap('<leader>w=', vim.schedule_wrap(function() resize_width(2) end), silent)
+keymap.nnoremap('<leader>w-', vim.schedule_wrap(function() resize_width(-2) end), silent)
+keymap.nnoremap('<leader>h=', vim.schedule_wrap(function() resize_height(2) end), silent)
+keymap.nnoremap('<leader>h-', vim.schedule_wrap(function() resize_height(-2) end), silent)
+
 ----------------
 -- operations --
 ----------------
