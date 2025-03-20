@@ -79,7 +79,7 @@ M.setup.toml = {
 }
 
 M.setup.typescript = with(yarn, {
-    lsp = 'tsserver',
+    lsp = 'ts_ls',
 })
 
 M.setup.vim = {
