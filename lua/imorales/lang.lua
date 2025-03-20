@@ -4,8 +4,8 @@ local M = { setup = {} }
 -- projects --
 --------------
 local yarn = {
-    format_cmd = '!yarn run prettier --write %',
-    init       = function()
+    fmt_cmd = '!yarn run prettier --write %',
+    init    = function()
         vim.bo.tabstop     = 2
         vim.bo.softtabstop = 2
         vim.bo.shiftwidth  = 2
