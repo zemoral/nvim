@@ -37,7 +37,7 @@ keymap.nnoremap('<leader>h-', vim.schedule_wrap(function() resize_height(-2) end
 ----------------
 
 -- yank to system clipboard
-keymap.vnoremap('<A-C>', function() vim.cmd(':y+"') end, silent)
+keymap.vnoremap('YY', function() vim.cmd(':y+"') end, silent)
 
 -- spawn horizontal, vertical pane
 keymap.nnoremap('<A-h>', function() vim.cmd(':split %') end, silent)
