@@ -110,12 +110,12 @@ function M.format()
     end
 end
 
-function M.run()
-    local language = vim.bo.filetype
+function M.run(language)
     local configured = M.setup[language]
     if configured and configured.run_cmd then
-        vim.cmd(':' .. configured.run_cmd)
+        return vim.fn.execute(":" .. configured.run_cmd)
     end
+    return nil
 end
 
 ---------------
