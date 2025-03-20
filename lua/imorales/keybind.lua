@@ -100,7 +100,6 @@ keymap.nnoremap('<C-t>', telescope.help_tags)
 keymap.nnoremap('<C-n>', function()
     if vim.bo.filetype == 'NvimTree' then
         vim.api.nvim_set_current_win(vim.g.before_tree_enter)
-        vim.g.before_tree_enter = nil
     else
         vim.g.before_tree_enter = vim.api.nvim_get_current_win()
         vim.cmd(":NvimTreeFocus")
@@ -108,6 +107,9 @@ keymap.nnoremap('<C-n>', function()
 end, silent)
 
 keymap.nnoremap('NN', function()
+    if vim.bo.filetype ~= 'NvimTree' then
+        vim.g.before_tree_enter = vim.api.nvim_get_current_win()
+    end
     vim.cmd(":NvimTreeToggle")
 end, silent)
 
