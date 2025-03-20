@@ -87,7 +87,7 @@ M.setup.vim = {
 }
 
 M.setup.vue = with(yarn, {
-    lsp = 'vuels',
+    lsp = 'volar',
 })
 
 M.setup.yaml = {
