@@ -38,7 +38,11 @@ local theme = {
 }
 
 local git = {
-    new = "#AFFFAF",
+    new     = "#AFFFAF",
+    merge   = pallete.teal,
+    staged  = pallete.maroon,
+    changed = pallete.orange,
+    deleted = pallete.red,
 }
 
 local icons = {
@@ -132,8 +136,8 @@ local colors = {
     -- lualine
     --
     ['GitGutterAdd']                = { guibg = gradient[2], guifg = git.new },
-    ['GitGutterChange']             = { guibg = gradient[2], guifg = theme['number'] },
-    ['GitGutterDelete']             = { guibg = gradient[2], guifg = theme['keyword'] },
+    ['GitGutterChange']             = { guibg = gradient[2], guifg = git.changed },
+    ['GitGutterDelete']             = { guibg = gradient[2], guifg = git.deleted },
     --
     -- telescope
     --
@@ -153,12 +157,19 @@ local colors = {
     ['NvimTreeOpenedFolderName']    = { guifg = theme['punctuation'] },
     ['NvimTreeFolderIcon']          = { guifg = theme['punctuation'] },
     ['NvimTreeIndentMarker']        = { guifg = theme['punctuation'] },
-    ['NvimTreeGitDirty']            = { guifg = theme['number'] },
-    ['NvimTreeGitStaged']           = { guifg = theme['number'] },
-    ['NvimTreeGitMerge']            = { guifg = theme['misc'] },
-    ['NvimTreeGitRenamed']          = { guifg = theme['number'] },
+    ['NvimTreeIndentMarkerIcon']    = { guifg = theme['punctuation'] },
     ['NvimTreeGitNew']              = { guifg = git.new },
-    ['NvimTreeGitDeleted']          = { guifg = theme['keyword'] },
+    ['NvimTreeGitNewIcon']          = { guifg = git.new },
+    ['NvimTreeGitMerge']            = { guifg = git.merge },
+    ['NvimTreeGitMergeIcon']        = { guifg = git.merge },
+    ['NvimTreeGitStaged']           = { guifg = git.staged },
+    ['NvimTreeGitStagedIcon']       = { guifg = git.staged },
+    ['NvimTreeGitDirty']            = { guifg = git.changed },
+    ['NvimTreeGitDirtyIcon']        = { guifg = git.changed },
+    ['NvimTreeGitRenamed']          = { guifg = git.changed },
+    ['NvimTreeGitRenamedIcon']      = { guifg = git.changed },
+    ['NvimTreeGitDeleted']          = { guifg = git.deleted },
+    ['NvimTreeGitDeletedIcon']      = { guifg = git.deleted },
     --
     -- semantic tokens
     --
