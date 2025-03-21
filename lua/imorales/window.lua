@@ -8,7 +8,7 @@ M.window = {
         config = {},
     },
     default = {
-        scale  = 0.8,
+        scale  = 0.6,
         enter  = true,
         listed = true,
     }
