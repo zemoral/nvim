@@ -17,7 +17,6 @@ keymap.nnoremap('<C-]>', function() vim.cmd(':m .-2') end, silent)
 keymap.nnoremap('}', '<C-U>zz', silent)
 keymap.nnoremap('{', '<C-D>zz', silent)
 
-
 -- resize window
 local function resize_width(delta)
     local win = vim.api.nvim_get_current_win()
