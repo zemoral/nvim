@@ -108,14 +108,18 @@ function M.format()
     else
         vim.lsp.buf.format({ async = true })
     end
+    vim.defer_fn(vim.cmd.write, 500)
 end
 
-function M.run(language)
+function M.run()
+    local language = vim.bo.filetype
     local configured = M.setup[language]
-    if configured and configured.run_cmd then
-        return vim.fn.execute(":" .. configured.run_cmd)
+    if configured == nil or configured.run_cmd == nil then
+        return
     end
-    return nil
+    local output = vim.fn.execute(":" .. configured.run_cmd)
+    local output_lines = vim.split(output, "\n")
+    require("imorales.window").open({ lines = output_lines })
 end
 
 ---------------

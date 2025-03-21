@@ -57,13 +57,7 @@ end, silent)
 keymap.nnoremap('<leader>f', language.format, silent)
 
 -- runner
-keymap.nnoremap('<leader>%', vim.schedule_wrap(function()
-    local output = language.run(vim.bo.filetype)
-    if output == nil or output == '' then
-        return
-    end
-    require("imorales.window").open({ lines = vim.split(out, "\n") })
-end))
+keymap.nnoremap('<leader>%', language.run)
 
 -- lsp assigned on_attach
 M.lsp = {
