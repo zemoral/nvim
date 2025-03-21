@@ -17,7 +17,11 @@ keymap.nnoremap('<C-]>', function() vim.cmd(':m .-2') end, silent)
 keymap.nnoremap('}', '<C-U>zz', silent)
 keymap.nnoremap('{', '<C-D>zz', silent)
 
--- resize window
+----------------
+-- operations --
+----------------
+
+-- resize horizontal, vertical window
 local function resize_width(delta)
     local win = vim.api.nvim_get_current_win()
     vim.api.nvim_win_set_width(win, vim.api.nvim_win_get_width(win) + delta)
@@ -31,16 +35,12 @@ keymap.nnoremap('<leader>w-', vim.schedule_wrap(function() resize_width(-2) end)
 keymap.nnoremap('<leader>h=', vim.schedule_wrap(function() resize_height(2) end), silent)
 keymap.nnoremap('<leader>h-', vim.schedule_wrap(function() resize_height(-2) end), silent)
 
-----------------
--- operations --
-----------------
-
--- yank to system clipboard
-keymap.vnoremap('YY', function() vim.cmd(':y+"') end, silent)
-
 -- spawn horizontal, vertical pane
 keymap.nnoremap('<A-h>', function() vim.cmd(':split %') end, silent)
 keymap.nnoremap('<A-v>', function() vim.cmd(':botright vsp %') end, silent)
+
+-- yank to system clipboard
+keymap.vnoremap('YY', function() vim.cmd(':y+"') end, silent)
 
 -- close window, prevent plugin cleanup
 keymap.nnoremap('<leader><esc>', function()
