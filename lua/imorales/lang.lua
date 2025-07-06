@@ -119,7 +119,6 @@ function M.format()
     else
         vim.lsp.buf.format({ async = true })
     end
-    vim.defer_fn(vim.cmd.write, 500)
 end
 
 function M.run()
