@@ -2,4 +2,5 @@
 
 [
  "const"
+ "return"
 ] @keyword.force
