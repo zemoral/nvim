@@ -41,6 +41,7 @@ M.setup.docker = {
 
 M.setup.go = {
     lsp = 'gopls',
+    fmt_cmd = "!gofmt -w %"
 }
 
 M.setup.html = {
@@ -80,6 +81,16 @@ M.setup.toml = {
 
 M.setup.typescript = with(yarn, {
     lsp = 'ts_ls',
+    lsp_filetypes = { 'javascript', 'typescript', 'vue' },
+    lsp_init_options = {
+        plugins = {
+            {
+                name = "@vue/typescript-plugin",
+                location = "/usr/local/lib/node_modules/@vue/typescript-plugin", -- can be anything iff installed in node_modules
+                languages = { "vue" },
+            },
+        }
+    }
 })
 
 M.setup.vim = {
@@ -131,8 +142,10 @@ function M.get_language_server(language)
         return { name = '', settings = {} }
     end
     return {
-        name     = configured.lsp or '',
-        settings = configured.lsp_settings or {},
+        name         = configured.lsp or '',
+        settings     = configured.lsp_settings or {},
+        filetypes    = configured.lsp_filetypes or nil,
+        init_options = configured.lsp_init_options or nil,
     }
 end
 

@@ -190,14 +190,16 @@ local colors = {
     -- language specific
     --
     -- rust
+    ['@type.rust']                  = { guifg = theme['variable'] },
     ['@lsp.type.type.rust']         = { guifg = theme['type'] },
-    ['@lsp.type.enum.rust']         = { guifg = theme['type'] },
-    ['@lsp.type.struct.rust']       = { guifg = theme['type'] },
     ['@lsp.type.interface.rust']    = { guifg = theme['type'] },
+    ['@lsp.type.struct.rust']       = { guifg = theme['class'] },
+    ['@lsp.type.enum.rust']         = { guifg = theme['class'] },
     ['@lsp.type.enumMember.rust']   = { guifg = theme['number'] },
     ['@function.macro.rust']        = { guifg = theme['other'] },
     ['@constant.builtin.rust']      = { guifg = theme['number'] },
     ['@storageclass.lifetime.rust'] = { guifg = theme['misc'] },
+    ['@lsp.type.lifetime.rust']     = { guifg = theme['misc'] },
     -- lua
     ['@constructor.lua']            = { guifg = theme['punctuation'] },
     -- css

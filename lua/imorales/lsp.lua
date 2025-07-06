@@ -29,12 +29,19 @@ end
 function M.setup()
     for name in pairs(language.setup) do
         local server = language.get_language_server(name)
-        local config = require('coq').lsp_ensure_capabilities({
+        local config = {
             flags     = { debounce_text_changes = 150 },
             settings  = server.settings,
             on_attach = on_attach,
-        })
-        require("lspconfig")[server.name].setup(config)
+        }
+        if server.filetypes ~= nil then
+            config.filetypes = server.filetypes
+        end
+        if server.init_options ~= nil then
+            config.init_options = server.init_options
+        end
+        local lspconfig = require('coq').lsp_ensure_capabilities(config)
+        require("lspconfig")[server.name].setup(lspconfig)
     end
 end
 
