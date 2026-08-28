@@ -27,12 +27,26 @@ M.setup.bash = {
     lsp = 'bashls'
 }
 
-M.setup.css = with(yarn, {
-    lsp = 'cssls',
-})
-
 M.setup.scss = with(yarn, {
     lsp = 'cssls',
+    lsp_settings = {
+        css = {
+            lint = {
+                unknownAtRules = 'ignore'
+            }
+        }
+    }
+})
+
+M.setup.css = with(yarn, {
+    lsp = 'cssls',
+    lsp_settings = {
+        css = {
+            lint = {
+                unknownAtRules = 'ignore'
+            }
+        }
+    }
 })
 
 M.setup.docker = {
