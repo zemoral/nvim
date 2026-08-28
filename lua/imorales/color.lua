@@ -211,6 +211,10 @@ local colors = {
     -- typescript
     ['@type.typescript']            = { guifg = theme['type'] },
     ['@attribute.typescript']       = { guifg = theme['misc'] },
+    -- astro
+    ['@type.astro']                 = { guifg = theme['type'] },
+    -- vue
+    ['@property.vue']               = { guifg = theme['type'] },
 }
 
 local function setup()
