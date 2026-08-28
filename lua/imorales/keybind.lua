@@ -88,12 +88,31 @@ keymap.nnoremap('<leader>tt', function()
 end)
 
 -- telescope
+local function telescope_to_qflist()
+    local telescope_bufnr = vim.g.telescope_bufnr
+    if telescope_bufnr and vim.api.nvim_buf_is_valid(telescope_bufnr) then
+        require("telescope.actions").send_to_qflist(telescope_bufnr)
+        vim.cmd("botright copen")
+        return
+    end
+    vim.notify("No global buffer active", vim.log.levels.WARN)
+end
+local function qflist_next()
+    local quickfix_bufnr = vim.g.quickfix_bufnr
+    if quickfix_bufnr and vim.api.nvim_buf_is_valid(quickfix_bufnr) then
+        vim.cmd("cnext")
+    end
+    vim.notify("No global buffer active", vim.log.levels.WARN)
+end
+
 keymap.nnoremap('<C-p>', telescope.find_files)
 keymap.nnoremap('<C-f>', telescope.live_grep)
 keymap.nnoremap('<C-g>', telescope.git_files)
 keymap.nnoremap('<C-y>', telescope.git_status)
 keymap.nnoremap('<C-b>', telescope.buffers)
 keymap.nnoremap('<C-t>', telescope.help_tags)
+keymap.inoremap('<C-j>', telescope_to_qflist) -- allowed in prompt via setup
+keymap.nnoremap('<C-j>', qflist_next)
 
 -- nvim-tree
 keymap.nnoremap('<C-n>', function()

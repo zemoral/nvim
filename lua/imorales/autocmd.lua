@@ -10,7 +10,7 @@ autocmd("TextYankPost", {
     end
 })
 
--- close nvim-tree before exiting
+-- close global buffers before exiting
 autocmd('QuitPre', {
     group    = imorales,
     callback = function()
@@ -18,6 +18,7 @@ autocmd('QuitPre', {
             vim.g.ignore_quit = false
             return
         end
+        vim.cmd(":cclose")
         vim.cmd(":NvimTreeClose")
     end
 })
@@ -31,4 +32,20 @@ autocmd('VimEnter', {
         vim.cmd(":NvimTreeOpen")
         vim.api.nvim_set_current_win(win)
     end
+})
+
+-- track "global" buffers
+autocmd("FileType", {
+    group    = imorales,
+    pattern  = "TelescopePrompt",
+    callback = function(args)
+        vim.g.telescope_bufnr = args.buf
+    end,
+})
+autocmd("FileType", {
+    group    = imorales,
+    pattern  = "qf",
+    callback = function(args)
+        vim.g.quickfix_bufnr = args.buf
+    end,
 })

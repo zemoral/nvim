@@ -2,13 +2,20 @@
 -- telescope --
 ---------------
 require('telescope').setup({
+    defaults   = {
+        mappings = {
+            i = {
+                ['<C-j>'] = false,
+            },
+        }
+    },
     extensions = {
         fzf = {
             fuzzy                   = true,
             override_file_sorter    = true,
             override_generic_sorter = true,
         }
-    }
+    },
 })
 
 require('telescope').load_extension('fzf')
